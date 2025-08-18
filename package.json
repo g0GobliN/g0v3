@@ -3,11 +3,13 @@
   "private": true,
   "version": "1.0.1",
   "type": "module",
+  "homepage": "https://g0GobliN.github.io/g0v3",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
