@@ -5,7 +5,9 @@ import Portfolio from './App';
 import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <BrowserRouter>
-    <Portfolio />
-  </BrowserRouter>
+  <React.StrictMode>
+    <BrowserRouter>
+      <Portfolio />
+    </BrowserRouter>
+  </React.StrictMode>
 );

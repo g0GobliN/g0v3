@@ -8,7 +8,7 @@ const NotFound = ({ isDarkMode }) => (
     style={{ opacity: 0, animation: "slideIn 0.6s ease-out forwards" }}
   >
     <img
-      src="/images/IMG_4027.jpeg"
+      src="assets/images/IMG_4027.jpeg"
       alt="Profile"
       className={`w-20 h-20 rounded-full object-cover border shadow-sm mb-6 ${
         isDarkMode ? "border-gray-700" : "border-gray-300"
