@@ -1,34 +1,126 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
-const NotFound = ({ isDarkMode }) => (
-  <div
-    className={`flex flex-col items-center justify-center px-4 mt-18 ${
-      isDarkMode ? "bg-black text-gray-300" : "bg-white text-gray-700"
-    }`}
-    style={{ opacity: 0, animation: "slideIn 0.6s ease-out forwards" }}
-  >
-    <img
-      src="assets/images/IMG_4027.jpeg"
-      alt="Profile"
-      className={`w-20 h-20 rounded-full object-cover border shadow-sm mb-6 ${
-        isDarkMode ? "border-gray-700" : "border-gray-300"
-      }`}
-    />
-    <h1 className="text-3xl font-gotham-book mb-2">404</h1>
-    <p className="text-md md:text-lg mb-4 font-gotham-book">
-      Oops! The page you’re looking for doesn’t exist.
-    </p>
-    <a
-      href="/"
-      className={`text-xs underline px-4 py-2 rounded transition-colors duration-200 ${
-        isDarkMode
-          ? "text-cyan-400 hover:text-white bg-gray-900"
-          : "text-cyan-700 hover:text-black bg-gray-100"
+const NotFound = ({ isDarkMode }) => {
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => setIsLoaded(true), 100);
+  }, []);
+
+  const snarkyMessages = [
+    "ah shit, here we go again",
+    "this page doesn't exist",
+    "you've found the void",
+    "404: creativity not found",
+    "lost in the digital wilderness",
+    "the page took a vacation",
+  ];
+
+  const [currentMessage] = useState(
+    snarkyMessages[Math.floor(Math.random() * snarkyMessages.length)]
+  );
+
+  return (
+    <div
+      className={`font-mono text-sm flex flex-col flex-grow items-center justify-center transition-all duration-500 ${
+        isDarkMode ? "bg-black text-white" : "bg-white text-black"
       }`}
     >
-      Go back home
-    </a>
-  </div>
-);
+      <style jsx>{`
+        @keyframes slideIn {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes pulse {
+          0%,
+          100% {
+            opacity: 0.5;
+          }
+          50% {
+            opacity: 1;
+          }
+        }
+
+        .pulse {
+          animation: pulse 2s infinite;
+        }
+      `}</style>
+
+      {/* Main 404 content */}
+      <div
+        className="text-center space-y-6 max-w-md"
+        style={{
+          opacity: isLoaded ? 1 : 0,
+          transform: isLoaded ? "translateY(0)" : "translateY(20px)",
+          transition: "all 0.8s ease-out 0.2s",
+        }}
+      >
+        {/* ASCII-style 404 */}
+        <div
+          className={`font-mono leading-tight ${
+            isDarkMode ? "text-gray-300" : "text-gray-700"
+          } text-[8px]`}
+        >
+          <pre>{`
+███████╗██████╗ ██████╗  ██████╗ ██████╗ 
+██╔════╝██╔══██╗██╔══██╗██╔═████╗██╔══██╗
+█████╗  ██████╔╝██████╔╝██║██╔██║██████╔╝
+██╔══╝  ██╔══██╗██╔══██╗████╔╝██║██╔══██╗
+███████╗██║  ██║██║  ██║╚██████╔╝██║  ██║
+╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝`}</pre>
+        </div>
+
+        {/* Error message */}
+        <div className="space-y-3">
+          <div
+            className={`text-sm ${
+              isDarkMode ? "text-gray-200" : "text-gray-700"
+            }`}
+          >
+            {currentMessage}
+          </div>
+
+          <div
+            className={`text-xs leading-relaxed ${
+              isDarkMode ? "text-gray-400" : "text-gray-600"
+            }`}
+          >
+            looks like you've wandered off the beaten path. maybe it's time to
+            head back to civilization?
+          </div>
+        </div>
+
+        {/* Navigation options */}
+        <div className="space-y-2">
+          <a
+            href="/"
+            className={`inline-block text-xs underline transition-colors duration-200 ${
+              isDarkMode
+                ? "text-gray-300 hover:text-white"
+                : "text-gray-700 hover:text-black"
+            }`}
+          >
+            → back to home
+          </a>
+
+          <div
+            className={`text-xs ${
+              isDarkMode ? "text-gray-500" : "text-gray-500"
+            }`}
+          >
+            or just sit here and contemplate existence
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default NotFound;
