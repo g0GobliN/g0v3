@@ -3,10 +3,10 @@
   "private": true,
   "version": "1.1.0",
   "type": "module",
-  "homepage": "https://g0GobliN.github.io/g0v3",
+  "homepage": "https://g0.monster",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && cp dist/index.html dist/404.html && cp CNAME dist/",
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
