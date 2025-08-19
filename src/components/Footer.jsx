@@ -6,7 +6,7 @@ const Footer = ({ content, currentTime, isDarkMode }) => (
         : 'border-gray-200 text-gray-400'
     }`}>
       <div className="space-y-2">
-        <div>© {new Date().getFullYear()} Vishal Gurung. All rights reserved.</div>
+       <div>© {new Date().getFullYear()} Vishal Gurung. Not responsible for broken browsers.</div>
         <div className={`text-xs ${isDarkMode ? 'text-gray-500' : 'text-gray-500'}`}>
           {currentTime.toLocaleString("en-US", {
             hour: "2-digit",

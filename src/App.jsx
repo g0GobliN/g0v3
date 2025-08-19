@@ -19,7 +19,6 @@ export default function Portfolio() {
   const [emailCopied, setEmailCopied] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
-  const [submitStatus, setSubmitStatus] = useState(""); 
 
 
   // Initialize theme and load animation
@@ -36,42 +35,6 @@ export default function Portfolio() {
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
-  const handleSubmit = async (e) => {
-  e.preventDefault();
-
-  // Simple validation
-  if (!formData.name || !formData.email || !formData.message) {
-    setSubmitStatus("error"); // show inline error
-    return;
-  }
-
-  try {
-    const response = await fetch(
-      "https://formsubmit.co/grgvishal.gurung17@gmail.com",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify(formData),
-      }
-    );
-
-    if (response.ok) {
-      setSubmitStatus("success"); // show inline success
-      setFormData({ name: "", email: "", message: "" }); // clear form
-      setTimeout(() => setSubmitStatus(""), 1000); // hide message after 1s
-    } else {
-      setSubmitStatus("error"); // show inline error
-    }
-  } catch (err) {
-    console.error(err);
-    setSubmitStatus("error"); // show inline error
-  }
-};
-
 
   const toggleBlogPost = (index) => {
     const newExpanded = new Set(expandedBlogPosts);
@@ -186,12 +149,10 @@ export default function Portfolio() {
                     content={content}
                     formData={formData}
                     handleInputChange={handleInputChange}
-                    handleSubmit={handleSubmit}
                     expandedBlogPosts={expandedBlogPosts}
                     toggleBlogPost={toggleBlogPost}
                     emailCopied={emailCopied}
                     copyEmail={copyEmail}
-                    submitStatus={submitStatus}
                   />
                 ))}
               </div>

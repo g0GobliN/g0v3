@@ -1,13 +1,10 @@
 import { useState } from "react";
+import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
 
-const ContactForm = ({
-  formData,
-  handleInputChange,
-  handleSubmit,
-  isDarkMode,
-  submitStatus,
-}) => {
+const ContactForm = ({ formData, handleInputChange, isDarkMode }) => {
   const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(""); // inline message
 
   const validate = () => {
     const newErrors = {};
@@ -19,22 +16,56 @@ const ContactForm = ({
     return Object.keys(newErrors).length === 0;
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
-    handleSubmit(e);
+
+    setIsSubmitting(true);
+    setSubmitStatus("");
+
+    try {
+      const response = await fetch(
+        "https://formsubmit.co/ajax/grgvishal.gurung17@gmail.com",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+
+      const result = await response.json();
+
+      if (result.success === "true") {
+        setSubmitStatus("success");
+        // Clear the form
+        handleInputChange({ target: { name: "name", value: "" } });
+        handleInputChange({ target: { name: "email", value: "" } });
+        handleInputChange({ target: { name: "message", value: "" } });
+      } else {
+        setSubmitStatus("error");
+      }
+    } catch (err) {
+      console.error(err);
+      setSubmitStatus("error");
+    } finally {
+      setIsSubmitting(false);
+      setTimeout(() => setSubmitStatus(""), 5000);
+    }
   };
 
   return (
-    <div className="space-y-4 max-w-md">
-      <div onClick={(e) => e.stopPropagation()}>
+    <div onClick={(e) => e.stopPropagation()} className="space-y-4 max-w-md">
+      {/* Name */}
+      <div>
         <input
           type="text"
           name="name"
           placeholder="your name"
           value={formData.name}
           onChange={handleInputChange}
-          onClick={(e) => e.stopPropagation()}
           className={`w-full bg-transparent border-b text-xs py-2 focus:outline-none transition-all duration-200 ${
             isDarkMode
               ? "border-gray-700 focus:border-cyan-400 text-white placeholder-gray-500"
@@ -44,14 +75,14 @@ const ContactForm = ({
         {errors.name && <p className="text-red-500 text-xs">{errors.name}</p>}
       </div>
 
-      <div onClick={(e) => e.stopPropagation()}>
+      {/* Email */}
+      <div>
         <input
           type="email"
           name="email"
           placeholder="your email"
           value={formData.email}
           onChange={handleInputChange}
-          onClick={(e) => e.stopPropagation()}
           className={`w-full bg-transparent border-b text-xs py-2 focus:outline-none transition-all duration-200 ${
             isDarkMode
               ? "border-gray-700 focus:border-cyan-400 text-white placeholder-gray-500"
@@ -61,13 +92,13 @@ const ContactForm = ({
         {errors.email && <p className="text-red-500 text-xs">{errors.email}</p>}
       </div>
 
-      <div onClick={(e) => e.stopPropagation()}>
+      {/* Message */}
+      <div>
         <textarea
           name="message"
           placeholder="tell me about your project..."
           value={formData.message}
           onChange={handleInputChange}
-          onClick={(e) => e.stopPropagation()}
           rows={4}
           className={`w-full bg-transparent border-b text-xs py-2 focus:outline-none resize-none transition-all duration-200 ${
             isDarkMode
@@ -80,21 +111,35 @@ const ContactForm = ({
         )}
       </div>
 
+      {/* Submit button */}
       <button
         type="button"
-        onClick={(e) => {
-          e.stopPropagation();
-          onSubmit(e);
-        }}
-        className={`relative text-xs font-medium underline px-2 py-1 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'} transition-transform duration-200 hover:-translate-y-1 active:translate-y-0 active:scale-95 active:shadow-md`}
+        onClick={onSubmit}
+        disabled={isSubmitting}
+        className={`relative text-xs font-medium underline px-2 py-1 transition-transform duration-200 ${
+          isDarkMode ? "text-gray-300" : "text-gray-700"
+        } ${
+          isSubmitting
+            ? "opacity-50 cursor-wait"
+            : "hover:-translate-y-1 active:translate-y-0 active:scale-95 active:shadow-md"
+        } flex items-center gap-1`}
       >
-        send message
+        {isSubmitting ? (
+          <>
+            Sending...
+            <PaperAirplaneIcon className="w-4 h-4 animate-spin" />
+          </>
+        ) : (
+          <>
+            send message
+            <PaperAirplaneIcon className="w-4 h-4" />
+          </>
+        )}
       </button>
 
+      {/* Status messages */}
       {submitStatus === "success" && (
-        <p className="text-green-400 text-xs mt-1">
-          Message sent successfully!
-        </p>
+        <p className="text-green-400 text-xs mt-1">Message sent successfully!</p>
       )}
       {submitStatus === "error" && (
         <p className="text-red-500 text-xs mt-1">
