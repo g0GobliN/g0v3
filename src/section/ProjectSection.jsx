@@ -72,7 +72,7 @@ const ProjectsSection = ({ isDarkMode }) => {
       "My personal portfolio built with React and Tailwind CSS. It’s simple, fast, and works on all devices. It has smooth animations, dark mode, and sections to showcase projects, blogs, and skills.",
     type: "portfolio",
     gifUrl: "/assets/gif/portfolio.gif",
-    url: "https://github.com/g0GobliN/g0",
+    url: "https://g0goblin.github.io/g0/",
   },
 ];
 
