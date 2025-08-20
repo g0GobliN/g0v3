@@ -58,23 +58,23 @@ const ProjectsSection = ({ isDarkMode }) => {
   const [fullscreenProject, setFullscreenProject] = useState(null);
 
   const projects = [
-    {
-      title: "Dog API",
-      description:
-        "A learning project focused on REST API integration, asynchronous requests, and dynamic content rendering. Users can fetch random dog images and browse them in a responsive, mobile-friendly UI.",
-      type: "dog-api",
-      gifUrl: "/assets/gif/dog.gif",
-      url: "/dog-demo.html",
-    },
-    {
-      title: "Responsive Portfolio",
-      description:
-        "A fully responsive and modern portfolio website built with React and Tailwind CSS, designed to showcase projects, skills, and blog posts. Includes animated sections, smooth transitions, and interactive components for an engaging user experience across desktop and mobile devices.",
-      type: "portfolio",
-      gifUrl: "/assets/gif/portfolio.gif",
-      url: "https://github.com/g0GobliN/g0",
-    },
-  ];
+  {
+    title: "Dog API",
+    description:
+      "A fun project where users can fetch random dog images using a REST API. It was a great way to practice working with APIs, async requests, and building a clean, mobile-friendly UI.",
+    type: "dog-api",
+    gifUrl: "/assets/gif/dog.gif",
+    url: "/dog-demo.html",
+  },
+  {
+    title: "Responsive Portfolio",
+    description:
+      "My personal portfolio built with React and Tailwind CSS. It’s simple, fast, and works on all devices. It has smooth animations, dark mode, and sections to showcase projects, blogs, and skills.",
+    type: "portfolio",
+    gifUrl: "/assets/gif/portfolio.gif",
+    url: "https://github.com/g0GobliN/g0",
+  },
+];
 
   return (
     <div

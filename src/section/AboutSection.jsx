@@ -8,7 +8,7 @@ const AboutSection = ({ isDarkMode }) => {
     <>
       {/* About Content */}
       <div
-        className="pl-8 pb-8"
+        className="px-8 pb-8"
         style={{ opacity: 0, animation: "slideIn 0.6s ease-out forwards" }}
       >
         <div className="flex flex-col items-center text-center gap-4 relative">
@@ -52,8 +52,7 @@ const AboutSection = ({ isDarkMode }) => {
       >
         Vishal Gurung
       </span>
-      . Currently in Japan, building software that actually works. Clean, efficient, reliable, no nonsense, no shortcuts.
-      I focus on writing code that works well and looks good. Constantly learning, taking on challenges, and leveling up—no fear, just results.
+      , based in Japan, building software that actually works. I focus on clean and reliable code, because good design is nothing without function, and I keep pushing myself forward by learning and improving every day.
     </p>
 
     <p
@@ -61,7 +60,7 @@ const AboutSection = ({ isDarkMode }) => {
         isDarkMode ? "text-gray-400" : "text-gray-500"
       }`}
     >
-      Open-source is my playground. I dive into projects, learn from the best, contribute what I can, and absorb knowledge from GitHub, YouTube, blogs, and anything else that teaches me something new. If it’s out there, I’ll explore it, understand it, and make it better.
+      Open source is where I grow the most, because it lets me explore, learn from others, and share back what I know. Whether it’s GitHub projects, YouTube tutorials, or blogs, I dive in, connect the dots, and keep expanding what I can do.
     </p>
 
     <p
@@ -69,7 +68,7 @@ const AboutSection = ({ isDarkMode }) => {
         isDarkMode ? "text-gray-400" : "text-gray-500"
       }`}
     >
-      When I’m not coding, I explore cultures, find inspiration in the unexpected, and collect ideas like trophies. I don’t just follow trends, I dissect them, learn from them, and sometimes, do it better. Life’s too short for boring code and uninspired projects.
+      Outside of code, I explore culture and ideas that spark creativity, because inspiration doesn’t always come from the screen. I study trends not just to follow them, but to understand them, twist them, and turn them into something better.
     </p>
   </div>
 </TextReveal>

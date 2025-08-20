@@ -66,7 +66,7 @@ const ContactForm = ({ formData, handleInputChange, isDarkMode }) => {
           placeholder="your name"
           value={formData.name}
           onChange={handleInputChange}
-          className={`w-full bg-transparent border-b text-xs py-2 focus:outline-none transition-all duration-200 ${
+          className={`w-full bg-transparent border-b text-base scale-80 origin-left py-2 focus:outline-none transition-all duration-200 ${
             isDarkMode
               ? "border-gray-700 focus:border-cyan-400 text-white placeholder-gray-500"
               : "border-gray-200 focus:border-gray-400 text-black placeholder-gray-500"
@@ -83,7 +83,7 @@ const ContactForm = ({ formData, handleInputChange, isDarkMode }) => {
           placeholder="your email"
           value={formData.email}
           onChange={handleInputChange}
-          className={`w-full bg-transparent border-b text-xs py-2 focus:outline-none transition-all duration-200 ${
+          className={`w-full bg-transparent border-b text-base scale-80 origin-left py-2 focus:outline-none transition-all duration-200 ${
             isDarkMode
               ? "border-gray-700 focus:border-cyan-400 text-white placeholder-gray-500"
               : "border-gray-200 focus:border-gray-400 text-black placeholder-gray-500"
@@ -100,7 +100,7 @@ const ContactForm = ({ formData, handleInputChange, isDarkMode }) => {
           value={formData.message}
           onChange={handleInputChange}
           rows={4}
-          className={`w-full bg-transparent border-b text-xs py-2 focus:outline-none resize-none transition-all duration-200 ${
+          className={`w-full bg-transparent border-b text-base scale-80 origin-left py-2 focus:outline-none resize-none transition-all duration-200 ${
             isDarkMode
               ? "border-gray-700 focus:border-cyan-400 text-white placeholder-gray-500"
               : "border-gray-200 focus:border-gray-400 text-black placeholder-gray-500"
