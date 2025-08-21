@@ -2,6 +2,7 @@ import AboutSection from '../section/AboutSection';
 import ProjectsSection from '../section/ProjectSection';
 import BlogSection from '../section/BlogSection';
 import ContactSection from '../section/ContactSection';
+import { useRef } from 'react';
 
 const Section = ({ 
   section, 
@@ -19,6 +20,18 @@ const Section = ({
   copyEmail,
   submitStatus
 }) => {
+  const clickSound = useRef(null);
+
+  const handleSectionClick = () => {
+    if (clickSound.current) {
+      clickSound.current.volume = 0.3; // Set volume to 20%
+      clickSound.current.currentTime = 0; // Restart sound if it's already playing
+      clickSound.current.play();
+    }
+
+    setActiveSection(activeSection === section.key ? "" : section.key);
+  };
+
   const renderSectionContent = () => {
     if (section.isProjects) {
       return <ProjectsSection projects={content.projects} isDarkMode={isDarkMode} />;
@@ -51,16 +64,15 @@ const Section = ({
   return (
     <div
       className="group cursor-pointer"
-      onClick={() =>
-        setActiveSection(
-          activeSection === section.key ? "" : section.key
-        )
-      }
+      onClick={handleSectionClick}
       style={{ 
         opacity: 0,
         animation: `slideIn 0.6s ease-out ${index * 0.2}s forwards`
       }}
     >
+      {/* Hidden audio element */}
+      <audio ref={clickSound} src="assets/sounds/whoosh.mp3" preload="auto" />
+
       <div className="flex items-baseline gap-4 mb-3">
         <span className={`text-xs font-normal ${isDarkMode ? 'text-gray-400' : 'text-gray-400'}`}>
           {section.label}

@@ -1,203 +1,90 @@
 import React, { useState } from "react";
-import { ArrowRight, X } from "lucide-react";
-import TextReveal from "../components/TextReveal";
 
-const AnimatedProjectVisual = ({ type, gifUrl, onClick, isDarkMode }) => {
-  if (gifUrl) {
-    return (
-      <div
-        className="w-full max-w-xs h-32 bg-gradient-to-br from-gray-800 to-gray-900 
-                   rounded-lg overflow-hidden border border-gray-300/50 cursor-pointer hover:scale-105 
-                   transform transition-transform duration-300"
-        onClick={onClick}
-      >
-        <img
-          src={gifUrl}
-          alt="Project demo"
-          className="w-full h-full object-cover rounded-lg"
-        />
-      </div>
-    );
-  }
-
-  // Fallback example
-  if (type === "dog-api") {
-    return (
-      <div
-        onClick={onClick}
-        className="w-full max-w-xs h-32 bg-gradient-to-br from-gray-800 to-gray-900 
-                   rounded-lg flex items-center justify-center border border-gray-300/50 overflow-hidden 
-                   relative cursor-pointer hover:scale-105 transform transition-transform duration-300"
-      >
-        <div className="absolute inset-0">
-          <div className="absolute top-2 left-2 w-1 h-1 bg-cyan-400 rounded-full animate-ping"></div>
-          <div
-            className="absolute top-3 right-3 w-1 h-1 bg-cyan-400 rounded-full animate-ping"
-            style={{ animationDelay: "0.5s" }}
-          ></div>
-          <div
-            className="absolute bottom-2 left-3 w-1 h-1 bg-cyan-400 rounded-full animate-ping"
-            style={{ animationDelay: "1s" }}
-          ></div>
-        </div>
-        <div className="text-center">
-          <div className="w-8 h-8 mx-auto border border-cyan-400/30 rounded flex items-center justify-center">
-            <div className="text-cyan-400 font-mono text-[10px] font-medium">
-              API
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  return null;
-};
-
-const ProjectsSection = ({ isDarkMode }) => {
-  const [fullscreenProject, setFullscreenProject] = useState(null);
-
+const ProjectsSection = ({ isDarkMode = true }) => {
+  const [focus, setFocus] = useState(null);
+  
   const projects = [
-  {
-    title: "Dog API",
-    description:
-      "A fun project where users can fetch random dog images using a REST API. It was a great way to practice working with APIs, async requests, and building a clean, mobile-friendly UI.",
-    type: "dog-api",
-    gifUrl: "/assets/gif/dog.gif",
-    url: "/dog-demo.html",
-  },
-  {
-    title: "Responsive Portfolio",
-    description:
-      "My personal portfolio built with React and Tailwind CSS. It’s simple, fast, and works on all devices. It has smooth animations, dark mode, and sections to showcase projects, blogs, and skills.",
-    type: "portfolio",
-    gifUrl: "/assets/gif/portfolio.gif",
-    url: "https://g0goblin.github.io/g0/",
-  },
-];
+    {
+      title: "dog api",
+      snippet: "fetching random dog images through rest api calls with mobile-first responsive design and error handling",
+      tech: "vanilla javascript fetch api async await",
+      url: "/dog-demo.html",
+      thoughts: "simple but effective. dogs make everyone happy. api calls are fundamental."
+    },
+    {
+      title: "portfolio",
+      snippet: "personal website showcasing projects and skills with dark mode toggle smooth animations and responsive layouts",
+      tech: "react hooks tailwind css responsive design",
+      url: "https://g0goblin.github.io/g0/",
+      code: "https://github.com/g0goblin/g0",
+      thoughts: "meta project. building the thing that shows the things you build."
+    }
+  ];
+
+  const c = {
+    main: isDarkMode ? "text-gray-300" : "text-gray-700",
+    fade: isDarkMode ? "text-gray-500" : "text-gray-500", 
+    accent: isDarkMode ? "text-white" : "text-black"
+  };
 
   return (
-    <div
-     onClick={(e) => e.stopPropagation()}
-      className="pl-8 pb-8"
-      style={{ opacity: 0, animation: "slideIn 0.6s ease-out forwards" }}
-    >
-      <div className="space-y-6">
-        <div
-          className={`text-xs leading-relaxed ${
-            isDarkMode ? "text-gray-200" : "text-gray-700"
-          }`}
-        >
-          some of my recent work
-        </div>
-
-        <div className="space-y-6">
-          {projects.map((project, index) => (
-            <div key={index} className="space-y-2">
-              <TextReveal delay={index * 100}>
-                <div className="flex items-center mb-1">
-                  <div
-                    className={`w-10 h-px ${
-                      isDarkMode ? "bg-cyan-400" : "bg-gray-800"
-                    }`}
-                  ></div>
-                  <span
-                    className={`ml-2 font-gotham-book-italic text-xs ${
-                      isDarkMode ? "text-cyan-400" : "text-gray-800"
-                    }`}
-                  >
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                </div>
-              </TextReveal>
-
-              <div className="flex flex-col md:flex-row md:items-start md:gap-8">
-                <div className="flex-1 md:ml-12 space-y-2">
-                  <AnimatedProjectVisual
-                    type={project.type}
-                    gifUrl={project.gifUrl}
-                    onClick={() => setFullscreenProject(project)}
-                    isDarkMode={isDarkMode}
-                  />
-
-                  <TextReveal delay={index * 100 + 200}>
-                    <h3
-                      className={`text-sm font-gotham-book leading-snug ${
-                        isDarkMode ? "text-white" : "text-black"
-                      }`}
-                    >
-                      {project.title}
-                    </h3>
-                  </TextReveal>
-
-                  <TextReveal delay={index * 100 + 300}>
-                    <p
-                      className={`text-xs md:text-[13px] leading-relaxed font-gotham-book ${
-                        isDarkMode ? "text-gray-400" : "text-gray-500"
-                      }`}
-                    >
-                      {project.description}
-                    </p>
-                  </TextReveal>
-
-                  <TextReveal delay={index * 100 + 400}>
-                    <a
-                      href={project.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`inline-flex items-center space-x-1 text-xs underline transition-colors duration-300 ${
-                        isDarkMode
-                          ? "text-gray-200 hover:text-cyan-600"
-                          : "text-gray-600 hover:text-cyan-700"
-                      }`}
-                    >
-                      <span>View website</span>
-                      <ArrowRight size={12} />
-                    </a>
-                  </TextReveal>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+    <div className="max-w-2xl text-xs leading-loose">
+      <div className={`${c.fade} mb-6 italic`}>
+        some things i've built recently.
       </div>
-
-      {/* Fullscreen Modal */}
-      {fullscreenProject && (
-        <div
-          className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 p-4"
-          onClick={() => setFullscreenProject(null)} // clicking backdrop closes modal
+      
+      {projects.map((p, i) => (
+        <div 
+          key={i}
+          className={`mb-8 pl-8 transition-all duration-500 ${
+            focus === i ? 'opacity-100' : focus === null ? 'opacity-100' : 'opacity-30'
+          }`}
+          onMouseEnter={() => setFocus(i)}
+          onMouseLeave={() => setFocus(null)}
         >
-          {/* Close button */}
-          <button
-            className="absolute top-6 right-6 text-white hover:text-cyan-400 transition"
-            onClick={(e) => {
-              e.stopPropagation(); // ✅ prevent toggling parent
-              setFullscreenProject(null);
-            }}
-          >
-            <X size={32} />
-          </button>
-
-          {/* Modal content */}
-          <div
-            className="max-w-sm w-full"
-            onClick={(e) => e.stopPropagation()} // ✅ stop parent clicks
-          >
-            <img
-              src={fullscreenProject.gifUrl}
-              alt={fullscreenProject.title}
-              className="w-full h-auto rounded-lg shadow-2xl"
-            />
-            <h2 className="text-white text-xl mt-4">
-              {fullscreenProject.title}
-            </h2>
-            <p className="text-gray-300 text-sm mt-2">
-              {fullscreenProject.description}
-            </p>
+          {/* Title inline with description */}
+          <div className={`${c.main} mb-2`}>
+            <span className={`${c.accent} font-medium`}>{p.title}</span>{' '}
+            — {p.snippet}
+          </div>
+          
+          {/* Tech as flowing text */}
+          <div className={`${c.fade} mb-2`}>
+            built with {p.tech}
+          </div>
+          
+          {/* Personal note */}
+          <div className={`${c.fade} italic mb-2 transition-opacity duration-300 ${
+            focus === i ? 'opacity-100' : 'opacity-70'
+          }`}>
+            {p.thoughts}
+          </div>
+          
+          {/* Links naturally embedded */}
+          <div className={`${c.main}`} onClick={(e) => e.stopPropagation()}>
+            you can{' '}
+            <a href={p.url} target="_blank" rel="noopener noreferrer" 
+               className={`${c.accent} underline hover:no-underline transition-all`}
+               onClick={(e) => e.stopPropagation()}>
+              try it here
+            </a>
+            {p.code && (
+              <>
+                {' '}or{' '}
+                <a href={p.code} target="_blank" rel="noopener noreferrer"
+                   className={`${c.accent} underline hover:no-underline transition-all`}
+                   onClick={(e) => e.stopPropagation()}>
+                  read the code
+                </a>
+              </>
+            )}
           </div>
         </div>
-      )}
+      ))}
+      
+      <div className={`${c.fade} text-center mt-8 italic`}>
+        * always building something new
+      </div>
     </div>
   );
 };
