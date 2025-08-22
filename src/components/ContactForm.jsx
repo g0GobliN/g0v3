@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
 
 const ContactForm = ({ formData, handleInputChange, isDarkMode }) => {
@@ -6,19 +6,37 @@ const ContactForm = ({ formData, handleInputChange, isDarkMode }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(""); // inline message
 
+  // Refs for sounds
+  const successSoundRef = useRef(null);
+  const errorSoundRef = useRef(null);           // submission errors
+  const validationErrorSoundRef = useRef(null); // validation errors
+
+  // Validate input fields
   const validate = () => {
     const newErrors = {};
     if (!formData.name) newErrors.name = "Name is required";
     if (!formData.email || !formData.email.includes("@"))
       newErrors.email = "Valid email required";
     if (!formData.message) newErrors.message = "Message is required";
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (!validate()) return;
+
+    const isValid = validate();
+
+    // Play validation error sound if inputs are invalid
+    if (!isValid) {
+      if (validationErrorSoundRef.current) {
+        validationErrorSoundRef.current.volume = 0.5;
+        validationErrorSoundRef.current.currentTime = 0;
+        validationErrorSoundRef.current.play().catch(() => {});
+      }
+      return;
+    }
 
     setIsSubmitting(true);
     setSubmitStatus("");
@@ -40,16 +58,31 @@ const ContactForm = ({ formData, handleInputChange, isDarkMode }) => {
 
       if (result.success === "true") {
         setSubmitStatus("success");
-        // Clear the form
+        if (successSoundRef.current) {
+          successSoundRef.current.volume = 0.5;
+          successSoundRef.current.currentTime = 0;
+          successSoundRef.current.play().catch(() => {});
+        }
+        // Clear form
         handleInputChange({ target: { name: "name", value: "" } });
         handleInputChange({ target: { name: "email", value: "" } });
         handleInputChange({ target: { name: "message", value: "" } });
       } else {
         setSubmitStatus("error");
+        if (errorSoundRef.current) {
+          errorSoundRef.current.volume = 0.5;
+          errorSoundRef.current.currentTime = 0;
+          errorSoundRef.current.play().catch(() => {});
+        }
       }
     } catch (err) {
       console.error(err);
       setSubmitStatus("error");
+      if (errorSoundRef.current) {
+        errorSoundRef.current.volume = 0.5;
+        errorSoundRef.current.currentTime = 0;
+        errorSoundRef.current.play().catch(() => {});
+      }
     } finally {
       setIsSubmitting(false);
       setTimeout(() => setSubmitStatus(""), 5000);
@@ -58,6 +91,11 @@ const ContactForm = ({ formData, handleInputChange, isDarkMode }) => {
 
   return (
     <div onClick={(e) => e.stopPropagation()} className="space-y-4 max-w-md">
+      {/* Audio elements */}
+      <audio ref={successSoundRef} src="/assets/sounds/success2.mp3" preload="auto" />
+      <audio ref={errorSoundRef} src="/assets/sounds/error.mp3" preload="auto" />
+      <audio ref={validationErrorSoundRef} src="/assets/sounds/error1.mp3" preload="auto" />
+
       {/* Name */}
       <div>
         <input

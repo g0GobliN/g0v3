@@ -21,7 +21,7 @@ const ContactInfo = ({ isDarkMode, emailCopied, copyEmail }) => {
       }`}
     >
       {/* Hidden audio element */}
-      <audio ref={copySound} src="/assets/sounds/pop_wow.mp3" preload="auto" />
+      <audio ref={copySound} src="/assets/sounds/pop.mp3" preload="auto" />
 
       <div
         className={`text-xs space-y-1 ${
