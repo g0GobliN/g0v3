@@ -13,7 +13,7 @@ const BlogSection = ({ isDarkMode = true }) => {
       date: "august 18, 2025",
       excerpt:
         "My first portfolio was cool but too complicated. This time I built a simpler, cleaner version that is easier to use and maintain.",
-      readTime: "3 min read",
+      readTime: "10 min read",
       category: "development",
       featured: true,
       image:
@@ -97,10 +97,6 @@ Thanks for checking it out! Feel free to explore my projects or reach out if you
           <div className="w-full">
             {/* Article Header */}
             <header className="mb-6 sm:mb-8">
-              <div className={`${c.fade} text-[10px] sm:text-xs uppercase tracking-wider mb-2 sm:mb-4 max-w-4xl`}>
-                thoughts, experiments & observations
-              </div>
-
               <div
                 className={`flex flex-col sm:flex-row sm:items-center sm:justify-between py-2 sm:py-4 border-t border-b ${c.border} gap-1 sm:gap-0`}
               >
@@ -108,20 +104,13 @@ Thanks for checking it out! Feel free to explore my projects or reach out if you
                   {blogPosts.length} articles published
                 </div>
                 <div className={`${c.fade} text-[10px] sm:text-xs font-mono`}>
-                  development • design • learning
+                  thoughts, experiments & observations
                 </div>
               </div>
             </header>
 
             {/* Article Content */}
             <article className="mb-6 sm:mb-12">
-              <p
-                className={`${c.main} text-xs leading-relaxed first-letter:text-2xl first-letter:font-medium first-letter:float-left first-letter:mr-2 first-letter:mt-0.5 first-letter:leading-none max-w-4xl mb-6 sm:mb-8`}
-              >
-                A collection of writings on web development, design decisions,
-                and lessons learned along the way. Each post captures a moment
-                in the ongoing journey of building things for the web.
-              </p>
 
               {/* Blog Posts Grid */}
               <section>
@@ -161,7 +150,7 @@ Thanks for checking it out! Feel free to explore my projects or reach out if you
                           <img
                             src={post.image}
                             alt={post.title}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 filter grayscale group-hover:grayscale-0"
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                           />
                         )}
                       </div>
@@ -169,7 +158,7 @@ Thanks for checking it out! Feel free to explore my projects or reach out if you
                       {/* Post Content */}
                       <div className="p-3 sm:p-6">
                         <div
-                          className={`${c.fade} text-[10px] sm:text-xs uppercase tracking-wide mb-1 sm:mb-2`}
+                          className={`${c.fade} text-[12px] sm:text-xs uppercase tracking-wide mb-1 sm:mb-2`}
                         >
                           {post.category}
                         </div>
@@ -215,7 +204,7 @@ Thanks for checking it out! Feel free to explore my projects or reach out if you
                         ) : (
                           <>
                             <h3
-                              className={`${c.accent} text-[10px] sm:text-xs font-medium mb-1 sm:mb-2 leading-tight`}
+                              className={`${c.accent} text-[12px] sm:text-xs font-medium mb-1 sm:mb-2 leading-tight`}
                             >
                               {post.title}
                             </h3>
@@ -268,18 +257,22 @@ Thanks for checking it out! Feel free to explore my projects or reach out if you
           } w-full max-w-6xl mx-auto`}
           onClick={(e) => e.stopPropagation()}
         >
+          {/* Back Button */}
+          <button
+  onClick={handleClose}
+  className={`
+    underline ${c.fade} ${c.cyan} text-xs transition-colors duration-300 flex items-center gap-2 mb-6
+  `}
+>
+  ← back to blog
+</button>
+
+
+
           {/* Article Header */}
           <header className="mb-4 sm:mb-8">
-            <div className="flex items-center justify-between mb-3 sm:mb-6">
-              <div className={`${c.fade} text-[10px] sm:text-xs uppercase tracking-wider`}>
-                {selectedPost.category}
-              </div>
-              <button
-                onClick={handleClose}
-                className={`${c.fade} ${c.cyanHover} text-[10px] sm:text-xs transition-colors flex items-center gap-2 underline hover:no-underline`}
-              >
-                ← back to blog
-              </button>
+            <div className={`${c.fade} text-[10px] sm:text-xs uppercase tracking-wider mb-3 sm:mb-6`}>
+              {selectedPost.category}
             </div>
 
             <h1
@@ -304,110 +297,58 @@ Thanks for checking it out! Feel free to explore my projects or reach out if you
             </div>
           </header>
 
-          {/* Article Layout */}
-          <div className="grid grid-cols-12 gap-4 sm:gap-8">
-            {/* Main Content */}
-            <div className="col-span-8">
-              {/* Hero Image */}
-              <figure className="mb-4 sm:mb-8">
-                <div className={`w-full h-48 sm:h-80 overflow-hidden border ${c.border}`}>
-                  <img
-                    src={selectedPost.image}
-                    alt={selectedPost.title}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <figcaption
-                  className={`${c.fade} text-[10px] sm:text-xs mt-2 sm:mt-3 italic text-center`}
-                >
-                  {selectedPost.title} - {selectedPost.category}
-                </figcaption>
-              </figure>
-
-              {/* Article Body */}
-              <article className="space-y-3 sm:space-y-6">
-                <div
-                  className={`${c.main} text-xs leading-relaxed first-letter:text-2xl first-letter:font-medium first-letter:float-left first-letter:mr-2 first-letter:mt-0.5 first-letter:leading-none whitespace-pre-line`}
-                >
-                  {selectedPost.content}
-                </div>
-
-                {/* Pull Quote */}
-                <blockquote
-                  className={`my-4 sm:my-8 text-center ${c.accent} text-xs italic font-light border-t border-b ${c.border} py-3 sm:py-6`}
-                >
-                  "{selectedPost.reflection}"
-                </blockquote>
-              </article>
-            </div>
-
-            {/* Sidebar */}
-            <aside className="col-span-4">
-              <div
-                className={`sticky top-8 ${c.bg} p-3 sm:p-6 border ${c.border}`}
-              >
-                <h3
-                  className={`${c.accent} font-medium mb-2 sm:mb-4 text-[10px] sm:text-xs uppercase tracking-wider`}
-                >
-                  article info
-                </h3>
-
-                <div className="space-y-2 sm:space-y-3">
-                  <div>
-                    <div
-                      className={`${c.fade} text-[10px] sm:text-xs uppercase tracking-wide`}
-                    >
-                      category
-                    </div>
-                    <div className={`${c.main} text-[10px] sm:text-xs`}>
-                      {selectedPost.category}
-                    </div>
-                  </div>
-
-                  <div>
-                    <div
-                      className={`${c.fade} text-[10px] sm:text-xs uppercase tracking-wide`}
-                    >
-                      published
-                    </div>
-                    <div className={`${c.main} text-[10px] sm:text-xs`}>
-                      {selectedPost.date}
-                    </div>
-                  </div>
-
-                  <div>
-                    <div
-                      className={`${c.fade} text-[10px] sm:text-xs uppercase tracking-wide`}
-                    >
-                      read time
-                    </div>
-                    <div className={`${c.main} text-[10px] sm:text-xs`}>
-                      {selectedPost.readTime}
-                    </div>
-                  </div>
-
-                  {selectedPost.tags && (
-                    <div>
-                      <div
-                        className={`${c.fade} text-[10px] sm:text-xs uppercase tracking-wide mb-2`}
-                      >
-                        tags
-                      </div>
-                      <div className="flex flex-wrap gap-1">
-                        {selectedPost.tags.map((tag, index) => (
-                          <span
-                            key={index}
-                            className={`${c.fade} text-[10px] sm:text-xs px-2 py-1 border ${c.border} rounded-sm transition-colors duration-200 hover:${c.cyan}`}
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
+          {/* Article Layout - Full Width */}
+          <div>
+            {/* Hero Image */}
+            <figure className="mb-4 sm:mb-8">
+              <div className={`w-full h-48 sm:h-80 overflow-hidden border ${c.border}`}>
+                <img
+                  src={selectedPost.image}
+                  alt={selectedPost.title}
+                  className="w-full h-full object-cover"
+                />
               </div>
-            </aside>
+              <figcaption
+                className={`${c.fade} text-[10px] sm:text-xs mt-2 sm:mt-3 italic text-center`}
+              >
+                {selectedPost.title} - {selectedPost.category}
+              </figcaption>
+            </figure>
+
+            {/* Article Body */}
+            <article className="space-y-3 sm:space-y-6 max-w-4xl">
+              <div
+                className={`${c.main} text-xs leading-relaxed first-letter:text-2xl first-letter:font-medium first-letter:float-left first-letter:mr-2 first-letter:mt-0.5 first-letter:leading-none whitespace-pre-line`}
+              >
+                {selectedPost.content}
+              </div>
+
+              {/* Pull Quote */}
+              <blockquote
+                className={`my-4 sm:my-8 text-center ${c.accent} text-xs italic font-light border-t border-b ${c.border} py-3 sm:py-6`}
+              >
+                "{selectedPost.reflection}"
+              </blockquote>
+
+              {/* Tags at bottom */}
+              {selectedPost.tags && (
+                <div className={`pt-4 sm:pt-6 border-t ${c.border}`}>
+                  <div className={`${c.fade} text-[10px] sm:text-xs uppercase tracking-wide mb-2`}>
+                    tags
+                  </div>
+                  <div className="flex flex-wrap gap-1">
+                    {selectedPost.tags.map((tag, index) => (
+                      <span
+                        key={index}
+                        className={`${c.fade} text-[10px] sm:text-xs px-2 py-1 border ${c.border} rounded-sm transition-colors duration-200 hover:${c.cyan}`}
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </article>
           </div>
         </div>
       )}

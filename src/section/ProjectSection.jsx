@@ -1,10 +1,13 @@
 import React, { useState, useRef } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const ProjectsSection = ({ isDarkMode = true }) => {
   const [selectedProject, setSelectedProject] = useState(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const whooshSound = useRef(null);
   const backSound = useRef(null);
-
+  const scrollContainerRef = useRef(null);
+  
   const projects = [
     {
       id: 1,
@@ -15,7 +18,7 @@ const ProjectsSection = ({ isDarkMode = true }) => {
       tech: "vanilla js • fetch api • responsive design",
       url: "/dog-demo.html",
       code: "#",
-      image: "/assets/images/dogAPI.jpg",
+      image: "/assets/gif/dog.gif",
       category: "web development",
     },
     {
@@ -27,7 +30,7 @@ const ProjectsSection = ({ isDarkMode = true }) => {
       tech: "react • tailwind css • responsive design",
       url: "https://g0goblin.github.io/g0/",
       code: "https://github.com/g0goblin/g0",
-      image: "/assets/images/portfolio.jpg",
+      image: "/assets/gif/portfolio.gif",
       category: "design & development",
     },
   ];
@@ -38,6 +41,8 @@ const ProjectsSection = ({ isDarkMode = true }) => {
     accent: isDarkMode ? "text-white" : "text-black",
     border: isDarkMode ? "border-gray-800" : "border-gray-200",
     bg: isDarkMode ? "bg-black" : "bg-white",
+    skeleton: isDarkMode ? "bg-gray-800" : "bg-gray-200",
+    skeletonShimmer: isDarkMode ? "from-gray-800 via-gray-700 to-gray-800" : "from-gray-200 via-gray-100 to-gray-200",
   };
 
   const playWhooshSound = () => {
@@ -68,13 +73,60 @@ const ProjectsSection = ({ isDarkMode = true }) => {
     setSelectedProject(null);
   };
 
+  // Navigation functions
+  const totalItems = projects.length + 1; // +1 for skeleton
+  const itemsPerView = window.innerWidth >= 768 ? 2 : 1;
+  const maxIndex = Math.max(0, totalItems - itemsPerView);
+
+  const scrollToIndex = (index) => {
+    if (scrollContainerRef.current) {
+      const itemWidth = 288 + 24; // w-72 (288px) + gap (24px)
+      scrollContainerRef.current.scrollTo({
+        left: index * itemWidth,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  const handlePrevious = () => {
+    const newIndex = Math.max(0, currentIndex - 1);
+    setCurrentIndex(newIndex);
+    scrollToIndex(newIndex);
+  };
+
+  const handleNext = () => {
+    const newIndex = Math.min(maxIndex, currentIndex + 1);
+    setCurrentIndex(newIndex);
+    scrollToIndex(newIndex);
+  };
+
+  // Skeleton component for loading state
+  const ProjectSkeleton = ({ index }) => (
+    <div className="group flex-shrink-0 w-72">
+      {/* Skeleton Image */}
+      <div className={`aspect-video ${c.skeleton} mb-3 relative overflow-hidden`}>
+        <div className={`absolute inset-0 bg-gradient-to-r ${c.skeletonShimmer} animate-pulse`}></div>
+      </div>
+      
+      {/* Skeleton Info */}
+      <div>
+        <div className="flex items-baseline justify-between mb-1">
+          <div className={`h-3 w-24 ${c.skeleton} animate-pulse`}></div>
+          <div className={`${c.fade} text-xs`}>#{String(index + 1).padStart(2, "0")}</div>
+        </div>
+        <div className={`h-3 w-32 ${c.skeleton} animate-pulse mb-2`}></div>
+        <div className={`h-3 w-28 ${c.skeleton} animate-pulse`}></div>
+      </div>
+    </div>
+  );
+
   return (
     <div className="w-full max-w-6xl mx-auto px-4 sm:px-0">
       {/* Whoosh sound for opening projects */}
       <audio ref={whooshSound} preload="auto">
         <source src="/assets/sounds/whoosh.mp3" type="audio/mp3" />
       </audio>
-
+      
       {/* 8bit sound for back button */}
       <audio ref={backSound} preload="auto">
         <source src="/assets/sounds/8bit.mp3" type="audio/mp3" />
@@ -82,10 +134,10 @@ const ProjectsSection = ({ isDarkMode = true }) => {
 
       {/* Header */}
       <div className="mb-8">
-        <div className={`${c.fade} text-xs mb-4`}>selected work</div>
+        <div className={`${c.fade} text-[11px] mb-4`}>scaleelected projects i've developed lately.</div>
         <div className={`flex justify-between items-center pb-4 border-b ${c.border}`}>
           <div className={`${c.main} text-xs`}>
-            {selectedProject ? "1 project selected" : `${projects.length} projects`}
+            {selectedProject ? "1 project selected" : `${projects.length + 1} projects`}
           </div>
           <div className={`${c.fade} text-xs`}>2024 — 2025</div>
         </div>
@@ -93,12 +145,44 @@ const ProjectsSection = ({ isDarkMode = true }) => {
 
       {/* Show Gallery or Selected Project */}
       {!selectedProject ? (
-        /* Project Gallery - Show all projects when none selected */
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8" onClick={(e) => e.stopPropagation()}>
+        <div className="relative">
+          {/* Navigation Arrows */}
+           <button
+            onClick={(e) => {
+              e.stopPropagation();
+              handlePrevious();
+            }}
+            disabled={currentIndex === 0}
+            className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 ${c.bg} ${c.border} border rounded-full 
+              ${currentIndex === 0 ? `${c.fade} cursor-not-allowed` : `${c.accent} hover:bg-gray-100 dark:hover:bg-gray-800`} 
+              transition-all duration-300 -ml-4`}
+          >
+            <ChevronLeft size={16} />
+          </button>
+          
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              handleNext();
+            }}
+            disabled={currentIndex >= maxIndex}
+            className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 ${c.bg} ${c.border} border rounded-full 
+              ${currentIndex >= maxIndex ? `${c.fade} cursor-not-allowed` : `${c.accent} hover:bg-gray-100 dark:hover:bg-gray-800`} 
+              transition-all duration-300 -mr-4`}
+          >
+            <ChevronRight size={16} />
+          </button>
+
+          {/* Project Gallery - Show all projects when none selected */}
+          <div 
+            ref={scrollContainerRef}
+            className="flex overflow-x-hidden gap-6 mb-8 scroll-smooth" 
+            onClick={(e) => e.stopPropagation()}
+          >
           {projects.map((project, index) => (
             <div
               key={project.id}
-              className="group cursor-pointer"
+              className="group cursor-pointer flex-shrink-0 w-72"
               onClick={(e) => handleProjectClick(project, e)}
             >
               {/* Project Image */}
@@ -106,14 +190,14 @@ const ProjectsSection = ({ isDarkMode = true }) => {
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105"
+                  className="w-full h-full scale-120 object-cover transition-all duration-500 group-hover:scale-125"
                 />
               </div>
 
               {/* Project Info */}
               <div>
                 <div className="flex items-baseline justify-between mb-1">
-                  <h3 className={`${c.accent} text-sm font-medium`}>
+                  <h3 className={`${c.accent} text-xs font-medium`}>
                     {project.title}
                   </h3>
                   <div className={`${c.fade} text-xs`}>#{String(index + 1).padStart(2, "0")}</div>
@@ -127,7 +211,27 @@ const ProjectsSection = ({ isDarkMode = true }) => {
               </div>
             </div>
           ))}
+          
+          {/* Skeleton for loading project */}
+          <ProjectSkeleton index={projects.length} />
         </div>
+
+        {/* Navigation Dots */}
+        <div className="flex justify-center gap-2 mt-6">
+          {Array.from({ length: Math.ceil(totalItems / itemsPerView) }).map((_, index) => (
+            <button
+              key={index}
+              onClick={() => {
+                setCurrentIndex(index);
+                scrollToIndex(index);
+              }}
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                index === currentIndex ? c.accent : c.fade
+              }`}
+            />
+          ))}
+        </div>
+      </div>
       ) : (
         /* Selected Project Details - Show only when project is selected */
         <div className="space-y-6" onClick={(e) => e.stopPropagation()}>
@@ -162,7 +266,7 @@ const ProjectsSection = ({ isDarkMode = true }) => {
                   <div className={`${c.fade} text-xs uppercase tracking-wider mb-2`}>
                     {selectedProject.category}
                   </div>
-                  <h2 className={`${c.accent} text-lg font-medium mb-2`}>
+                  <h2 className={`${c.accent} text-sm font-medium mb-2`}>
                     {selectedProject.title}
                   </h2>
                   <p className={`${c.main} text-xs mb-4`}>
@@ -196,7 +300,6 @@ const ProjectsSection = ({ isDarkMode = true }) => {
                   >
                     {selectedProject.url === "#" ? "coming soon" : "view project →"}
                   </a>
-                  
                   {selectedProject.code && selectedProject.code !== "#" && (
                     <a
                       href={selectedProject.code}

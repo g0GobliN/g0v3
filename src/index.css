@@ -4,3 +4,5 @@
   --color-cyan: #00eaf9;
   --color-darkCyan: #6da8ad;
 }
+
+@custom-variant dark (&:where(.dark, .dark *));

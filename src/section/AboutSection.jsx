@@ -83,9 +83,7 @@ const AboutSection = ({ isDarkMode }) => {
             
             {/* Article Header */}
             <header className="mb-6 sm:mb-8">
-              <div className={`${c.fade} text-[10px] sm:text-xs uppercase tracking-wider mb-2 sm:mb-4`}>
-                software engineering
-              </div>
+
               
               <h1 className={`${c.accent} text-lg font-medium mb-2 sm:mb-4 leading-tight`}>
                 {magazineSections.find(s => s.id === currentSection)?.title}
@@ -100,7 +98,7 @@ const AboutSection = ({ isDarkMode }) => {
                   published august 2025
                 </div>
                 <div className={`${c.fade} text-[10px] sm:text-xs font-mono`}>
-                  react • tailwind • creativity
+                  Developer • Contributor • Explorer
                 </div>
               </div>
             </header>
@@ -117,7 +115,7 @@ const AboutSection = ({ isDarkMode }) => {
                 <img 
                   src={`${import.meta.env.BASE_URL}assets/images/IMG_4027.jpeg`}
                   alt="Vishal Gurung - Developer Profile"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter grayscale group-hover:grayscale-0"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
                 <div className="absolute bottom-2 sm:bottom-4 left-2 sm:left-4 text-white">
@@ -180,7 +178,7 @@ const AboutSection = ({ isDarkMode }) => {
                 <div className="space-y-2 sm:space-y-3">
                   <div>
                     <div className={`${c.fade} text-xs uppercase tracking-wide`}>location</div>
-                    <div className={`${c.main} text-xs`}>Tokyo, Japan</div>
+                    <div className={`${c.main} text-xs`}> Japan</div>
                   </div>
                   <div>
                     <div className={`${c.fade} text-xs uppercase tracking-wide`}>focus</div>
@@ -188,7 +186,7 @@ const AboutSection = ({ isDarkMode }) => {
                   </div>
                   <div>
                     <div className={`${c.fade} text-xs uppercase tracking-wide`}>passion</div>
-                    <div className={`${c.main} text-xs`}>Open Source</div>
+                    <div className={`${c.main} text-xs`}>Debugging Life</div>
                   </div>
                 </div>
               </div>
@@ -199,7 +197,7 @@ const AboutSection = ({ isDarkMode }) => {
                   currently working on
                 </div>
                 <div className={`${c.fade} text-[10px] sm:text-xs leading-relaxed break-words`}>
-                  Exploring new patterns in React architecture and contributing to open source projects
+                  Making small apps, practicing coding, and discovering new ways to solve problems. 
                 </div>
               </div>
             </div>
@@ -284,11 +282,6 @@ const AboutSection = ({ isDarkMode }) => {
                 <div className="text-[8px] xs:text-[10px] sm:text-xs opacity-70 font-mono">
                   Full-Stack Developer • Open Source Contributor
                 </div>
-              </div>
-              
-              {/* Issue info */}
-              <div className="absolute top-2 sm:top-4 lg:top-6 right-8 sm:right-12 lg:right-16 text-white text-[8px] xs:text-[10px] sm:text-xs font-mono opacity-60">
-                ISSUE #01
               </div>
             </div>
           </div>

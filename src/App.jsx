@@ -5,7 +5,6 @@ import ProgressIndicator from './components/ProgressIndicator';
 import Section from './components/Section';
 import Footer from './components/Footer';
 import NotFound from './components/NotFound';
-import blogPosts from './content/blogContent';
 
 export default function Portfolio() {
   const [activeSection, setActiveSection] = useState("about");
@@ -14,12 +13,10 @@ export default function Portfolio() {
     email: "",
     message: "",
   });
-  const [expandedBlogPosts, setExpandedBlogPosts] = useState(new Set());
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [emailCopied, setEmailCopied] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
-
 
   // Initialize theme and load animation
   useEffect(() => {
@@ -34,13 +31,6 @@ export default function Portfolio() {
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const toggleBlogPost = (index) => {
-    const newExpanded = new Set(expandedBlogPosts);
-    if (newExpanded.has(index)) newExpanded.delete(index);
-    else newExpanded.add(index);
-    setExpandedBlogPosts(newExpanded);
   };
 
   const toggleDarkMode = () => {
@@ -78,15 +68,16 @@ export default function Portfolio() {
       { key: "blog", label: "blog", isBlog: true },
       { key: "contact", label: "contact", isContact: true },
     ],
-    blogPosts,
   };
 
   return (
-    <div className={`min-h-screen font-mono text-sm p-4 flex flex-col items-center transition-all duration-500 ${
-      isDarkMode 
-        ? 'bg-black text-white' 
-        : 'bg-white text-black'
-    }`}>
+    <div
+      className={`
+        ${isDarkMode ? 'dark' : ''} 
+        min-h-screen font-mono text-sm p-4 flex flex-col items-center transition-all duration-500
+        ${isDarkMode ? 'bg-black text-white' : 'bg-white text-black'}
+      `}
+    >
       <style jsx>{`
         @keyframes slideIn {
           from {
@@ -98,7 +89,7 @@ export default function Portfolio() {
             transform: translateY(0);
           }
         }
-        
+
         @keyframes pulse {
           0%, 100% {
             opacity: 0.5;
@@ -107,18 +98,17 @@ export default function Portfolio() {
             opacity: 1;
           }
         }
-        
+
         .pulse {
           animation: pulse 2s infinite;
         }
       `}</style>
-      
+
       <div className={`max-w-3xl w-full md:border md:border-gray-300 md:rounded-lg md:p-6 flex flex-col flex-1 transition-all duration-500 ${
         isDarkMode 
           ? 'md:border-gray-800' 
           : 'md:border-gray-300'
       }`}>
-        
         <Header 
           content={content}
           isDarkMode={isDarkMode}
@@ -149,8 +139,6 @@ export default function Portfolio() {
                     content={content}
                     formData={formData}
                     handleInputChange={handleInputChange}
-                    expandedBlogPosts={expandedBlogPosts}
-                    toggleBlogPost={toggleBlogPost}
                     emailCopied={emailCopied}
                     copyEmail={copyEmail}
                   />

@@ -13,19 +13,15 @@ const Section = ({
   content,
   formData,
   handleInputChange,
-  handleSubmit,
-  expandedBlogPosts,
-  toggleBlogPost,
   emailCopied,
   copyEmail,
-  submitStatus
 }) => {
   const clickSound = useRef(null);
 
   const handleSectionClick = () => {
     if (clickSound.current) {
-      clickSound.current.volume = 0.3; // Set volume to 20%
-      clickSound.current.currentTime = 0; // Restart sound if it's already playing
+      clickSound.current.volume = 0.3;
+      clickSound.current.currentTime = 0;
       clickSound.current.play();
     }
 
@@ -36,24 +32,15 @@ const Section = ({
     if (section.isProjects) {
       return <ProjectsSection projects={content.projects} isDarkMode={isDarkMode} />;
     } else if (section.isBlog) {
-      return (
-        <BlogSection 
-          blogPosts={content.blogPosts}
-          isDarkMode={isDarkMode}
-          expandedBlogPosts={expandedBlogPosts}
-          toggleBlogPost={toggleBlogPost}
-        />
-      );
+      return <BlogSection isDarkMode={isDarkMode} />;
     } else if (section.isContact) {
       return (
         <ContactSection 
           formData={formData}
           handleInputChange={handleInputChange}
-          handleSubmit={handleSubmit}
           isDarkMode={isDarkMode}
           emailCopied={emailCopied}
           copyEmail={copyEmail}
-          submitStatus={submitStatus}
         />
       );
     } else {
@@ -70,7 +57,6 @@ const Section = ({
         animation: `slideIn 0.6s ease-out ${index * 0.2}s forwards`
       }}
     >
-      {/* Hidden audio element */}
       <audio ref={clickSound} src="assets/sounds/whoosh.mp3" preload="auto" />
 
       <div className="flex items-baseline gap-4 mb-3">
