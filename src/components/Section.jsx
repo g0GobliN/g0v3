@@ -17,6 +17,7 @@ const Section = ({
   copyEmail,
 }) => {
   const clickSound = useRef(null);
+  const sectionRef = useRef(null);
 
   const handleSectionClick = () => {
     if (clickSound.current) {
@@ -25,7 +26,17 @@ const Section = ({
       clickSound.current.play();
     }
 
-    setActiveSection(activeSection === section.key ? "" : section.key);
+    const newActive = activeSection === section.key ? "" : section.key;
+    setActiveSection(newActive);
+
+    // Scroll to section when opening
+    if (newActive && sectionRef.current) {
+      sectionRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',   // aligns top of section with viewport
+        inline: 'nearest',
+      });
+    }
   };
 
   const renderSectionContent = () => {
@@ -50,6 +61,7 @@ const Section = ({
 
   return (
     <div
+      ref={sectionRef}
       className="group cursor-pointer"
       onClick={handleSectionClick}
       style={{ 

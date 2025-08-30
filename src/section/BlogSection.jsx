@@ -49,15 +49,16 @@ Thanks for checking it out! Feel free to explore my projects or reach out if you
     },
   ];
 
-  const c = {
-    main: isDarkMode ? "text-gray-300" : "text-gray-600",
+   const c = {
+    main: isDarkMode ? "text-gray-300" : "text-gray-700",
     fade: isDarkMode ? "text-gray-400" : "text-gray-500",
     accent: isDarkMode ? "text-white" : "text-black",
-    border: isDarkMode ? "border-gray-700/20" : "border-gray-300/20",
+    border: isDarkMode ? "border-gray-800" : "border-gray-200",
     bg: isDarkMode ? "bg-black" : "bg-white",
-    cyan: isDarkMode ? "text-[#00eaf9]" : "text-[#6da8ad]",
-    cyanHover: isDarkMode ? "hover:text-[#00eaf9]" : "hover:text-[#6da8ad]"
+    skeleton: isDarkMode ? "bg-gray-800" : "bg-gray-200",
+    skeletonShimmer: isDarkMode ? "from-gray-800 via-gray-700 to-gray-800" : "from-gray-200 via-gray-100 to-gray-200",
   };
+
 
   const playSound = (soundRef) => {
     if (soundRef.current) {
@@ -261,7 +262,7 @@ Thanks for checking it out! Feel free to explore my projects or reach out if you
           <button
   onClick={handleClose}
   className={`
-    underline ${c.fade} ${c.cyan} text-xs transition-colors duration-300 flex items-center gap-2 mb-6
+    underline ${c.fade} hover:${c.accent} text-xs transition-colors duration-300 flex items-center gap-2 mb-6
   `}
 >
   ← back to blog

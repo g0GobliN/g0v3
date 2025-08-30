@@ -134,7 +134,7 @@ const ProjectsSection = ({ isDarkMode = true }) => {
 
       {/* Header */}
       <div className="mb-8">
-        <div className={`${c.fade} text-[11px] mb-4`}>scaleelected projects i've developed lately.</div>
+        <div className={`${c.fade} text-[11px] mb-4`}>selected projects i've developed lately.</div>
         <div className={`flex justify-between items-center pb-4 border-b ${c.border}`}>
           <div className={`${c.main} text-xs`}>
             {selectedProject ? "1 project selected" : `${projects.length + 1} projects`}
@@ -238,7 +238,7 @@ const ProjectsSection = ({ isDarkMode = true }) => {
           {/* Back Button */}
           <button
             onClick={handleBackToGallery}
-            className={`${c.fade} hover:${c.accent} text-xs transition-colors duration-300 flex items-center gap-2`}
+            className={`underline ${c.fade} hover:${c.accent} text-xs transition-colors duration-300 flex items-center gap-2`}
           >
             ← back to gallery
           </button>
