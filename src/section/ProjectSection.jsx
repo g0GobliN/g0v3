@@ -6,7 +6,6 @@ const ProjectsSection = ({ isDarkMode = true }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const whooshSound = useRef(null);
   const backSound = useRef(null);
-  const scrollContainerRef = useRef(null);
   
   const projects = [
     {
@@ -18,7 +17,7 @@ const ProjectsSection = ({ isDarkMode = true }) => {
       tech: "vanilla js • fetch api • responsive design",
       url: "/dog-demo.html",
       code: "#",
-      image: "/assets/gif/dog.gif",
+      image: "https://images.unsplash.com/photo-1551717743-49959800b1f6?w=300&h=375&fit=crop&auto=format",
       category: "web development",
     },
     {
@@ -30,7 +29,7 @@ const ProjectsSection = ({ isDarkMode = true }) => {
       tech: "react • tailwind css • responsive design",
       url: "https://g0goblin.github.io/g0/",
       code: "https://github.com/g0goblin/g0",
-      image: "/assets/gif/portfolio.gif",
+      image: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=300&h=375&fit=crop&auto=format",
       category: "design & development",
     },
   ];
@@ -41,8 +40,10 @@ const ProjectsSection = ({ isDarkMode = true }) => {
     accent: isDarkMode ? "text-white" : "text-black",
     border: isDarkMode ? "border-gray-800" : "border-gray-200",
     bg: isDarkMode ? "bg-black" : "bg-white",
-    skeleton: isDarkMode ? "bg-gray-800" : "bg-gray-200",
-    skeletonShimmer: isDarkMode ? "from-gray-800 via-gray-700 to-gray-800" : "from-gray-200 via-gray-100 to-gray-200",
+    cardBg: isDarkMode ? "bg-gray-900" : "bg-gray-50",
+    cyan: isDarkMode ? "text-[#00eaf9]" : "text-[#6da8ad]",
+    cyanHover: isDarkMode ? "hover:text-[#00eaf9]" : "hover:text-[#6da8ad]",
+    cyanBorder: isDarkMode ? "hover:border-[#00eaf9]" : "hover:border-[#6da8ad]",
   };
 
   const playWhooshSound = () => {
@@ -64,7 +65,7 @@ const ProjectsSection = ({ isDarkMode = true }) => {
   const handleProjectClick = (project, event) => {
     event.stopPropagation();
     playWhooshSound();
-    setSelectedProject(selectedProject?.id === project.id ? null : project);
+    setSelectedProject(project);
   };
 
   const handleBackToGallery = (event) => {
@@ -73,182 +74,138 @@ const ProjectsSection = ({ isDarkMode = true }) => {
     setSelectedProject(null);
   };
 
-  // Navigation functions
-  const totalItems = projects.length + 1; // +1 for skeleton
-  const itemsPerView = window.innerWidth >= 768 ? 2 : 1;
-  const maxIndex = Math.max(0, totalItems - itemsPerView);
-
-  const scrollToIndex = (index) => {
-    if (scrollContainerRef.current) {
-      const itemWidth = 288 + 24; // w-72 (288px) + gap (24px)
-      scrollContainerRef.current.scrollTo({
-        left: index * itemWidth,
-        behavior: 'smooth'
-      });
+  const handlePrevious = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1);
     }
   };
 
-  const handlePrevious = () => {
-    const newIndex = Math.max(0, currentIndex - 1);
-    setCurrentIndex(newIndex);
-    scrollToIndex(newIndex);
-  };
-
   const handleNext = () => {
-    const newIndex = Math.min(maxIndex, currentIndex + 1);
-    setCurrentIndex(newIndex);
-    scrollToIndex(newIndex);
+    if (currentIndex < projects.length - 2) {
+      setCurrentIndex(currentIndex + 1);
+    }
   };
-
-  // Skeleton component for loading state
-  const ProjectSkeleton = ({ index }) => (
-    <div className="group flex-shrink-0 w-72">
-      {/* Skeleton Image */}
-      <div className={`aspect-video ${c.skeleton} mb-3 relative overflow-hidden`}>
-        <div className={`absolute inset-0 bg-gradient-to-r ${c.skeletonShimmer} animate-pulse`}></div>
-      </div>
-      
-      {/* Skeleton Info */}
-      <div>
-        <div className="flex items-baseline justify-between mb-1">
-          <div className={`h-3 w-24 ${c.skeleton} animate-pulse`}></div>
-          <div className={`${c.fade} text-xs`}>#{String(index + 1).padStart(2, "0")}</div>
-        </div>
-        <div className={`h-3 w-32 ${c.skeleton} animate-pulse mb-2`}></div>
-        <div className={`h-3 w-28 ${c.skeleton} animate-pulse`}></div>
-      </div>
-    </div>
-  );
 
   return (
-    <div className="w-full max-w-6xl mx-auto px-4 sm:px-0">
-      {/* Whoosh sound for opening projects */}
+    <div className="w-full max-w-4xl mx-auto px-4">
+      {/* Audio elements */}
       <audio ref={whooshSound} preload="auto">
         <source src="/assets/sounds/whoosh.mp3" type="audio/mp3" />
       </audio>
-      
-      {/* 8bit sound for back button */}
       <audio ref={backSound} preload="auto">
         <source src="/assets/sounds/8bit.mp3" type="audio/mp3" />
       </audio>
 
       {/* Header */}
-      <div className="mb-8">
+      <div className="mb-6">
         <div className={`${c.fade} text-[11px] mb-4`}>selected projects i've developed lately.</div>
         <div className={`flex justify-between items-center pb-4 border-b ${c.border}`}>
           <div className={`${c.main} text-xs`}>
-            {selectedProject ? "1 project selected" : `${projects.length + 1} projects`}
+            {selectedProject ? "1 project selected" : `${projects.length} projects`}
           </div>
           <div className={`${c.fade} text-xs`}>2024 — 2025</div>
         </div>
       </div>
 
-      {/* Show Gallery or Selected Project */}
       {!selectedProject ? (
+        /* Mobile Gallery Style */
         <div className="relative">
-          {/* Navigation Arrows */}
-           <button
-            onClick={(e) => {
-              e.stopPropagation();
-              handlePrevious();
-            }}
-            disabled={currentIndex === 0}
-            className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 ${c.bg} ${c.border} border rounded-full 
-              ${currentIndex === 0 ? `${c.fade} cursor-not-allowed` : `${c.accent} hover:bg-gray-100 dark:hover:bg-gray-800`} 
-              transition-all duration-300 -ml-4`}
-          >
-            <ChevronLeft size={16} />
-          </button>
-          
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              handleNext();
-            }}
-            disabled={currentIndex >= maxIndex}
-            className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 ${c.bg} ${c.border} border rounded-full 
-              ${currentIndex >= maxIndex ? `${c.fade} cursor-not-allowed` : `${c.accent} hover:bg-gray-100 dark:hover:bg-gray-800`} 
-              transition-all duration-300 -mr-4`}
-          >
-            <ChevronRight size={16} />
-          </button>
-
-          {/* Project Gallery - Show all projects when none selected */}
-          <div 
-            ref={scrollContainerRef}
-            className="flex overflow-x-hidden gap-6 mb-8 scroll-smooth" 
-            onClick={(e) => e.stopPropagation()}
-          >
-          {projects.map((project, index) => (
-            <div
-              key={project.id}
-              className="group cursor-pointer flex-shrink-0 w-72"
-              onClick={(e) => handleProjectClick(project, e)}
-            >
-              {/* Project Image */}
-              <div className="aspect-video overflow-hidden mb-3">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full scale-120 object-cover transition-all duration-500 group-hover:scale-125"
-                />
-              </div>
-
-              {/* Project Info */}
-              <div>
-                <div className="flex items-baseline justify-between mb-1">
-                  <h3 className={`${c.accent} text-xs font-medium`}>
-                    {project.title}
-                  </h3>
-                  <div className={`${c.fade} text-xs`}>#{String(index + 1).padStart(2, "0")}</div>
-                </div>
-                <p className={`${c.main} text-xs mb-2`}>
-                  {project.subtitle}
-                </p>
-                <div className={`${c.fade} text-xs font-mono`}>
-                  {project.tech}
-                </div>
-              </div>
-            </div>
-          ))}
-          
-          {/* Skeleton for loading project */}
-          <ProjectSkeleton index={projects.length} />
-        </div>
-
-        {/* Navigation Dots */}
-        <div className="flex justify-center gap-2 mt-6">
-          {Array.from({ length: Math.ceil(totalItems / itemsPerView) }).map((_, index) => (
+          {/* Navigation Controls */}
+          <div className="flex justify-between items-center mb-4">
             <button
-              key={index}
-              onClick={() => {
-                setCurrentIndex(index);
-                scrollToIndex(index);
-              }}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                index === currentIndex ? c.accent : c.fade
-              }`}
-            />
-          ))}
+              onClick={handlePrevious}
+              disabled={currentIndex === 0}
+              className={`p-2 rounded-full ${c.bg} border ${c.border} ${
+                currentIndex === 0 ? `${c.fade} cursor-not-allowed` : `${c.accent} hover:${c.cardBg}`
+              } transition-all duration-200`}
+            >
+              <ChevronLeft size={16} />
+            </button>
+            
+            <div className={`${c.fade} text-xs`}>
+              {currentIndex + 1} - {Math.min(currentIndex + 2, projects.length)} of {projects.length}
+            </div>
+            
+            <button
+              onClick={handleNext}
+              disabled={currentIndex >= projects.length - 2}
+              className={`p-2 rounded-full ${c.bg} border ${c.border} ${
+                currentIndex >= projects.length - 2 ? `${c.fade} cursor-not-allowed` : `${c.accent} hover:${c.cardBg}`
+              } transition-all duration-200`}
+            >
+              <ChevronRight size={16} />
+            </button>
+          </div>
+
+          {/* Mobile Gallery Grid - 2 columns */}
+          <div className="grid grid-cols-2 gap-3">
+            {projects.slice(currentIndex, currentIndex + 2).map((project, index) => (
+              <div
+                key={project.id}
+                onClick={(e) => handleProjectClick(project, e)}
+                className="cursor-pointer group"
+              >
+                {/* Project Image with 4:5 ratio and border - Cyan accent on hover */}
+                <div className={`aspect-[4/5] overflow-hidden border ${c.border} rounded-sm mb-2 transition-all duration-300 ${c.cyanBorder}`}>
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                </div>
+                
+                {/* Project Info */}
+                <div className="px-1">
+                  <div className="flex items-baseline justify-between mb-1">
+                    {/* Project title with cyan hover */}
+                    <h3 className={`${c.accent} text-xs font-medium truncate pr-2 transition-colors duration-300 group-hover:${c.cyan}`}>
+                      {project.title}
+                    </h3>
+                    <div className={`${c.fade} text-[10px] flex-shrink-0`}>
+                      #{String(currentIndex + index + 1).padStart(2, "0")}
+                    </div>
+                  </div>
+                  <p className={`${c.main} text-[10px] mb-1 leading-relaxed`}>
+                    {project.subtitle}
+                  </p>
+                  <div className={`${c.fade} text-[9px] font-mono`}>
+                    {project.tech.split(' • ').slice(0, 2).join(' • ')}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Dots Indicator - Cyan for active dot */}
+          <div className="flex justify-center gap-1 mt-6">
+            {Array.from({ length: Math.ceil(projects.length / 2) }).map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentIndex(index * 2)}
+                className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+                  Math.floor(currentIndex / 2) === index ? c.cyan : c.fade
+                }`}
+              />
+            ))}
+          </div>
         </div>
-      </div>
       ) : (
-        /* Selected Project Details - Show only when project is selected */
-        <div className="space-y-6" onClick={(e) => e.stopPropagation()}>
-          {/* Back Button */}
+        /* Full Project Details */
+        <div className="space-y-6">
+          {/* Back Button - Cyan hover */}
           <button
             onClick={handleBackToGallery}
-            className={`underline ${c.fade} hover:${c.accent} text-xs transition-colors duration-300 flex items-center gap-2`}
+            className={`underline ${c.fade} ${c.cyanHover} text-xs transition-colors duration-300 flex items-center gap-2`}
           >
             ← back to gallery
           </button>
 
           {/* Selected Project Card */}
-          <div className={`${c.bg} border ${c.border} p-6 transition-all duration-500`}>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className={`${c.bg} border ${c.border} p-4 sm:p-6 transition-all duration-500`}>
+            <div className="grid grid-cols- sm:grid-cols-2 gap-6 lg:gap-8">
               {/* Left Side - Image */}
               <div className="space-y-4">
-                <div className="aspect-video overflow-hidden">
+                <div className={`aspect-[4/5] overflow-hidden border ${c.border}`}>
                   <img
                     src={selectedProject.image}
                     alt={selectedProject.title}
@@ -263,10 +220,11 @@ const ProjectsSection = ({ isDarkMode = true }) => {
               {/* Right Side - Description */}
               <div className="space-y-4">
                 <div>
-                  <div className={`${c.fade} text-xs uppercase tracking-wider mb-2`}>
+                  {/* Category in cyan */}
+                  <div className={`${c.cyan} text-xs uppercase tracking-wider mb-2 font-medium`}>
                     {selectedProject.category}
                   </div>
-                  <h2 className={`${c.accent} text-sm font-medium mb-2`}>
+                  <h2 className={`${c.accent} text-sm sm:text-base font-medium mb-2`}>
                     {selectedProject.title}
                   </h2>
                   <p className={`${c.main} text-xs mb-4`}>
@@ -287,12 +245,13 @@ const ProjectsSection = ({ isDarkMode = true }) => {
                   </div>
                 </div>
 
-                <div className="flex gap-4 text-xs">
+                {/* Links with cyan hover */}
+                <div className="flex gap-4 text-xs flex-wrap">
                   <a
                     href={selectedProject.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`${c.fade} hover:text-cyan-400 underline transition-colors`}
+                    className={`${c.fade} ${c.cyanHover} underline transition-colors`}
                     onClick={(e) => {
                       e.stopPropagation();
                       if (selectedProject.url === "#") e.preventDefault();
@@ -305,7 +264,7 @@ const ProjectsSection = ({ isDarkMode = true }) => {
                       href={selectedProject.code}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`${c.fade} hover:text-cyan-400 underline transition-colors`}
+                      className={`${c.fade} ${c.cyanHover} underline transition-colors`}
                       onClick={(e) => e.stopPropagation()}
                     >
                       source code →

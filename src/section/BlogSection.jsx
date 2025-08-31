@@ -57,6 +57,8 @@ Thanks for checking it out! Feel free to explore my projects or reach out if you
     bg: isDarkMode ? "bg-black" : "bg-white",
     skeleton: isDarkMode ? "bg-gray-800" : "bg-gray-200",
     skeletonShimmer: isDarkMode ? "from-gray-800 via-gray-700 to-gray-800" : "from-gray-200 via-gray-100 to-gray-200",
+    cyan: isDarkMode ? "text-[#00eaf9]" : "text-[#6da8ad]",
+    cyanHover: isDarkMode ? "hover:text-[#00eaf9]" : "hover:text-[#6da8ad]",
   };
 
 
@@ -158,8 +160,11 @@ Thanks for checking it out! Feel free to explore my projects or reach out if you
 
                       {/* Post Content */}
                       <div className="p-3 sm:p-6">
+                        {/* Category with cyan only in dark mode for non-skeleton posts */}
                         <div
-                          className={`${c.fade} text-[12px] sm:text-xs uppercase tracking-wide mb-1 sm:mb-2`}
+                          className={`text-[12px] sm:text-xs uppercase tracking-wide mb-1 sm:mb-2 ${
+                            post.skeleton ? c.fade : isDarkMode ? `${c.cyan} font-medium` : `${c.fade}`
+                          }`}
                         >
                           {post.category}
                         </div>
@@ -204,8 +209,9 @@ Thanks for checking it out! Feel free to explore my projects or reach out if you
                           </>
                         ) : (
                           <>
+                            {/* Title with cyan hover effect */}
                             <h3
-                              className={`${c.accent} text-[12px] sm:text-xs font-medium mb-1 sm:mb-2 leading-tight`}
+                              className={`${c.accent} text-[12px] sm:text-xs font-medium mb-1 sm:mb-2 leading-tight transition-colors duration-300 group-hover:${c.cyan}`}
                             >
                               {post.title}
                             </h3>
@@ -215,12 +221,12 @@ Thanks for checking it out! Feel free to explore my projects or reach out if you
                               {post.excerpt}
                             </p>
 
-                            {/* Tags */}
+                            {/* Tags with cyan hover */}
                             <div className="flex flex-wrap gap-1 mb-2 sm:mb-4">
                               {post.tags?.slice(0, 3).map((tag, tagIndex) => (
                                 <span
                                   key={tagIndex}
-                                  className={`${c.fade} text-[10px] sm:text-xs px-2 py-1 border ${c.border} rounded-sm transition-colors duration-200 hover:${c.cyan}`}
+                                  className={`${c.fade} text-[10px] sm:text-xs px-2 py-1 border ${c.border} rounded-sm transition-colors duration-200 ${c.cyanHover}`}
                                 >
                                   {tag}
                                 </span>
@@ -258,21 +264,18 @@ Thanks for checking it out! Feel free to explore my projects or reach out if you
           } w-full max-w-6xl mx-auto`}
           onClick={(e) => e.stopPropagation()}
         >
-          {/* Back Button */}
+          {/* Back Button with cyan hover */}
           <button
-  onClick={handleClose}
-  className={`
-    underline ${c.fade} hover:${c.accent} text-xs transition-colors duration-300 flex items-center gap-2 mb-6
-  `}
->
-  ← back to blog
-</button>
-
-
+            onClick={handleClose}
+            className={`underline ${c.fade} ${c.cyanHover} text-xs transition-colors duration-300 flex items-center gap-2 mb-6`}
+          >
+            ← back to blog
+          </button>
 
           {/* Article Header */}
           <header className="mb-4 sm:mb-8">
-            <div className={`${c.fade} text-[10px] sm:text-xs uppercase tracking-wider mb-3 sm:mb-6`}>
+            {/* Category in cyan only in dark mode */}
+            <div className={`text-[10px] sm:text-xs uppercase tracking-wider mb-3 sm:mb-6 ${isDarkMode ? `${c.cyan} font-medium` : `${c.fade}`}`}>
               {selectedPost.category}
             </div>
 
@@ -331,7 +334,7 @@ Thanks for checking it out! Feel free to explore my projects or reach out if you
                 "{selectedPost.reflection}"
               </blockquote>
 
-              {/* Tags at bottom */}
+              {/* Tags at bottom with cyan hover */}
               {selectedPost.tags && (
                 <div className={`pt-4 sm:pt-6 border-t ${c.border}`}>
                   <div className={`${c.fade} text-[10px] sm:text-xs uppercase tracking-wide mb-2`}>
@@ -341,7 +344,7 @@ Thanks for checking it out! Feel free to explore my projects or reach out if you
                     {selectedPost.tags.map((tag, index) => (
                       <span
                         key={index}
-                        className={`${c.fade} text-[10px] sm:text-xs px-2 py-1 border ${c.border} rounded-sm transition-colors duration-200 hover:${c.cyan}`}
+                        className={`${c.fade} text-[10px] sm:text-xs px-2 py-1 border ${c.border} rounded-sm transition-colors duration-200 ${c.cyanHover}`}
                       >
                         {tag}
                       </span>
