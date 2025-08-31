@@ -17,7 +17,7 @@ const ProjectsSection = ({ isDarkMode = true }) => {
       tech: "vanilla js • fetch api • responsive design",
       url: "/dog-demo.html",
       code: "#",
-      image: "https://images.unsplash.com/photo-1551717743-49959800b1f6?w=300&h=375&fit=crop&auto=format",
+      image: "/assets/images/dog2.webp",
       category: "web development",
     },
     {
@@ -29,7 +29,7 @@ const ProjectsSection = ({ isDarkMode = true }) => {
       tech: "react • tailwind css • responsive design",
       url: "https://g0goblin.github.io/g0/",
       code: "https://github.com/g0goblin/g0",
-      image: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=300&h=375&fit=crop&auto=format",
+      image: "/assets/images/portfolio5.jpg",
       category: "design & development",
     },
   ];
