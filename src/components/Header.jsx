@@ -1,25 +1,42 @@
 import { Sun, Moon } from "lucide-react";
+import DoodleButton from '../doodle/DoodleButton';
 
-const Header = ({ content, isDarkMode, isLoaded, toggleDarkMode }) => (
+const Header = ({ 
+  content, 
+  isDarkMode, 
+  isLoaded, 
+  toggleDarkMode, 
+  onDoodleClick 
+}) => (
   <div className="mb-20">
     <div className="flex items-center justify-between mb-1">
       <div className={`text-xs flex items-center gap-2 ${isDarkMode ? 'text-gray-400' : 'text-gray-400'}`}>
         <div className={`w-2 h-2 rounded-full pulse ${isDarkMode ? 'bg-cyan-400' : 'bg-green-500'}`}></div>
         currently online
       </div>
-      <button
-        onClick={toggleDarkMode}
-        className={`p-2 rounded-lg transition-all duration-200 hover:scale-110 ${
-          isDarkMode 
-            ? 'text-gray-300 hover:text-cyan-400 hover:bg-gray-900' 
-            : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'
-        }`}
-      >
-        {isDarkMode ? <Sun size={16} /> : <Moon size={16} />}
-      </button>
+      
+      <div className="flex items-center gap-1">
+        {/* Doodle Button */}
+        <DoodleButton 
+          isDarkMode={isDarkMode}
+          onClick={onDoodleClick}
+        />
+        
+        {/* Dark Mode Toggle */}
+        <button
+          onClick={toggleDarkMode}
+          className={`p-2 rounded-lg transition-all duration-200 hover:scale-110 ${
+            isDarkMode
+              ? 'text-gray-300 hover:text-cyan-400 hover:bg-gray-900'
+              : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'
+          }`}
+        >
+          {isDarkMode ? <Sun size={16} /> : <Moon size={16} />}
+        </button>
+      </div>
     </div>
     
-    <div style={{ 
+    <div style={{
       opacity: isLoaded ? 1 : 0,
       transform: isLoaded ? 'translateY(0)' : 'translateY(20px)',
       transition: 'all 0.8s ease-out'
