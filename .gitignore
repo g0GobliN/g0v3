@@ -23,6 +23,7 @@ dist-ssr
 *.sln
 *.sw?
 .vercel
+.env
 
 # Build directories
 /assets/sounds/click.wav

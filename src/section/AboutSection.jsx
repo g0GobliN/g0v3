@@ -232,8 +232,8 @@ const AboutSection = ({ isDarkMode }) => {
             <button
               className={`absolute top-3 right-3 z-50 p-2 rounded-full transition-all duration-200 hover:scale-110 focus:outline-none focus:ring-2 ${
                 isDarkMode
-                  ? "bg-gray-800/70 text-gray-200 hover:bg-gray-700/80 focus:ring-[#00eaf9]"
-                  : "bg-white/30 text-gray-800 hover:bg-white/50 focus:ring-[#6da8ad]"
+                  ? "bg-gray-800/70 text-gray-600 hover:bg-gray-700/80 focus:ring-[#00eaf9]"
+                  : "bg-white text-gray-800 hover:bg-white/50 focus:ring-[#6da8ad]"
               }`}
               onClick={(e) => {
                 e.stopPropagation();
@@ -288,7 +288,7 @@ const AboutSection = ({ isDarkMode }) => {
         </div>
       )}
 
-      <style jsx>{`
+      <style>{`
         @keyframes modalFadeIn {
           from {
             opacity: 0;
