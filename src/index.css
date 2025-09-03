@@ -6,3 +6,7 @@
 }
 
 @custom-variant dark (&:where(.dark, .dark *));
+
+.invert {
+  filter: invert();
+}

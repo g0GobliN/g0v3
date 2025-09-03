@@ -1,11 +1,11 @@
 import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
 import { getStorage } from "firebase/storage";
-import { getFirestore } from "firebase/firestore"; // <-- Add this line
+import { getFirestore } from "firebase/firestore"; 
 
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  apiKey: import.meta.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: import.meta.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
   projectId: "doodlenotepad-4d983",
   storageBucket: "doodlenotepad-4d983.appspot.com",
   messagingSenderId: "444977172237",
