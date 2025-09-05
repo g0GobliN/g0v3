@@ -15,6 +15,7 @@ const Section = ({
   handleInputChange,
   emailCopied,
   copyEmail,
+  openOutro
 }) => {
   const clickSound = useRef(null);
   const sectionRef = useRef(null);
@@ -55,7 +56,7 @@ const Section = ({
         />
       );
     } else {
-      return <AboutSection content={section.content} isDarkMode={isDarkMode} />;
+      return <AboutSection content={section.content} isDarkMode={isDarkMode} openOutro={openOutro} />;
     }
   };
 

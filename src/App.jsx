@@ -6,6 +6,7 @@ import Section from './components/Section';
 import Footer from './components/Footer';
 import NotFound from './components/NotFound';
 import DoodleNotepad from './doodle/DoodleNotepad';
+import OutroOverlay from './components/OutroOverlay';
 
 export default function Portfolio() {
   const [activeSection, setActiveSection] = useState("about");
@@ -19,6 +20,7 @@ export default function Portfolio() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [showDoodleWorld, setShowDoodleWorld] = useState(false);
+  const [showOutro, setShowOutro] = useState(false);
 
   // Initialize theme and load animation
   useEffect(() => {
@@ -47,6 +49,11 @@ export default function Portfolio() {
     } catch (err) {
       console.log('Failed to copy');
     }
+  };
+
+  // Handle double-click on name to show outro
+  const handleNameDoubleClick = () => {
+    setShowOutro(true);
   };
 
   // Handle keyboard navigation (Escape only)
@@ -119,6 +126,7 @@ export default function Portfolio() {
             isLoaded={isLoaded}
             toggleDarkMode={toggleDarkMode}
             onDoodleClick={() => setShowDoodleWorld(true)}
+            onNameDoubleClick={handleNameDoubleClick}
           />
 
           <ProgressIndicator 
@@ -146,6 +154,7 @@ export default function Portfolio() {
                       handleInputChange={handleInputChange}
                       emailCopied={emailCopied}
                       copyEmail={copyEmail}
+                      openOutro={() => setShowOutro(true)}
                     />
                   ))}
                 </div>
@@ -167,6 +176,15 @@ export default function Portfolio() {
         <DoodleNotepad 
           isDarkMode={isDarkMode}
           onClose={() => setShowDoodleWorld(false)}
+        />
+      )}
+      
+
+      {/* Outro Overlay */}
+      {showOutro && (
+        <OutroOverlay 
+          isDarkMode={isDarkMode}
+          onClose={() => setShowOutro(false)}
         />
       )}
     </>

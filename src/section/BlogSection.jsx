@@ -90,7 +90,7 @@ Thanks for checking it out! Feel free to explore my projects or reach out if you
     <div className="w-full px-4 sm:px-0" onClick={(e) => e.stopPropagation()}>
       {/* Hidden audio elements */}
       <audio ref={clickSound} preload="auto">
-        <source src="/assets/sounds/8bit.mp3" type="audio/mp3" />
+        <source src="/assets/sounds/whoosh.mp3" type="audio/mp3" />
       </audio>
       <audio ref={openSound} preload="auto">
         <source src="/assets/sounds/whoosh.mp3" type="audio/mp3" />
@@ -269,7 +269,7 @@ Thanks for checking it out! Feel free to explore my projects or reach out if you
           {/* Back Button with cyan hover */}
           <button
             onClick={handleClose}
-            className={`underline ${c.fade} ${c.cyanHover} text-xs transition-colors duration-300 flex items-center gap-2 mb-6`}
+            className={`underline ${c.fade} ${c.cyanHover} text-xs transition-colors duration-300 flex items-center gap-2 mt-3 mb-6`}
           >
             ← back to blog
           </button>

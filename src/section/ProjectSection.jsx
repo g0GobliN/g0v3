@@ -6,14 +6,15 @@ const ProjectsSection = ({ isDarkMode = true }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const whooshSound = useRef(null);
   const backSound = useRef(null);
-  
+
   const projects = [
     {
       id: 1,
       date: "nov 2024",
       title: "dog api experiment",
       subtitle: "weekend project exploring fetch patterns",
-      description: "This project started as a weekend experiment to practice fundamental web development concepts. The goal was simple: create something fun while reinforcing core JavaScript skills. What emerged was a clean, responsive application that demonstrates proper API integration patterns and error handling strategies.",
+      description:
+        "This project started as a weekend experiment to practice fundamental web development concepts. The goal was simple: create something fun while reinforcing core JavaScript skills. What emerged was a clean, responsive application that demonstrates proper API integration patterns and error handling strategies.",
       tech: "vanilla js • fetch api • responsive design",
       url: "/dog-demo.html",
       code: "#",
@@ -25,7 +26,8 @@ const ProjectsSection = ({ isDarkMode = true }) => {
       date: "may 2025",
       title: "first portfolio",
       subtitle: "complete redesign from ground up",
-      description: "This was my first full-stack portfolio website, and building it was a big milestone for me. It took me about a month to make, trying out different layout ideas before finally settling on this one. I used React, Tailwind CSS, and several NPM tools to build it. Through this project, I learned a lot and felt proud to see how much I could create. The design is clean and simple, focusing more on the content than flashy effects, and every part of it has a purpose.",
+      description:
+        "This was my first full-stack portfolio website, and building it was a big milestone for me. It took me about a month to make, trying out different layout ideas before finally settling on this one. I used React, Tailwind CSS, and several NPM tools to build it. Through this project, I learned a lot and felt proud to see how much I could create. The design is clean and simple, focusing more on the content than flashy effects, and every part of it has a purpose.",
       tech: "react • tailwind css • responsive design",
       url: "https://g0goblin.github.io/g0/",
       code: "https://github.com/g0goblin/g0",
@@ -81,7 +83,7 @@ const ProjectsSection = ({ isDarkMode = true }) => {
   };
 
   const handleNext = () => {
-    if (currentIndex < projects.length - 2) {
+    if (currentIndex < projects.length - 1) {
       setCurrentIndex(currentIndex + 1);
     }
   };
@@ -93,106 +95,145 @@ const ProjectsSection = ({ isDarkMode = true }) => {
         <source src="/assets/sounds/whoosh.mp3" type="audio/mp3" />
       </audio>
       <audio ref={backSound} preload="auto">
-        <source src="/assets/sounds/8bit.mp3" type="audio/mp3" />
+        <source src="/assets/sounds/whoosh.mp3" type="audio/mp3" />
       </audio>
 
       {/* Header */}
       <div className="mb-6">
-        <div className={`${c.fade} text-[11px] mb-4`}>selected projects i've developed lately.</div>
-        <div className={`flex justify-between items-center pb-4 border-b ${c.border}`}>
+        <div className={`${c.fade} text-[11px] mb-4`}>
+          selected projects i've developed lately.
+        </div>
+        <div
+          className={`flex justify-between items-center pb-4 border-b ${c.border}`}
+        >
           <div className={`${c.main} text-xs`}>
-            {selectedProject ? "1 project selected" : `${projects.length} projects`}
+            {selectedProject
+              ? "1 project selected"
+              : `${projects.length} projects`}
           </div>
           <div className={`${c.fade} text-xs`}>2024 — 2025</div>
         </div>
       </div>
 
       {!selectedProject ? (
-        /* Mobile Gallery Style */
+        /* Large Card Gallery Style */
         <div className="relative">
           {/* Navigation Controls */}
-          <div className="flex justify-between items-center mb-4">
+          <div className="flex justify-between items-center mb-3">
             <button
-              onClick={handlePrevious}
+              onClick={(e) => {
+                e.stopPropagation();
+                handlePrevious();
+              }}
               disabled={currentIndex === 0}
               className={`p-2 rounded-full ${c.bg} border ${c.border} ${
-                currentIndex === 0 ? `${c.fade} cursor-not-allowed` : `${c.accent} hover:${c.cardBg}`
+                currentIndex === 0
+                  ? `${c.fade} cursor-not-allowed`
+                  : `${c.accent} hover:${c.cardBg}`
               } transition-all duration-200`}
             >
               <ChevronLeft size={16} />
             </button>
-            
+
             <div className={`${c.fade} text-xs`}>
-              {currentIndex + 1} - {Math.min(currentIndex + 2, projects.length)} of {projects.length}
+              {currentIndex + 1} of {projects.length}
             </div>
-            
+
             <button
-              onClick={handleNext}
-              disabled={currentIndex >= projects.length - 2}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleNext();
+              }}
+              disabled={currentIndex >= projects.length - 1}
               className={`p-2 rounded-full ${c.bg} border ${c.border} ${
-                currentIndex >= projects.length - 2 ? `${c.fade} cursor-not-allowed` : `${c.accent} hover:${c.cardBg}`
+                currentIndex >= projects.length - 1
+                  ? `${c.fade} cursor-not-allowed`
+                  : `${c.accent} hover:${c.cardBg}`
               } transition-all duration-200`}
             >
               <ChevronRight size={16} />
             </button>
           </div>
 
-          {/* Mobile Gallery Grid - 2 columns */}
-          <div className="grid grid-cols-2 gap-3">
-            {projects.slice(currentIndex, currentIndex + 2).map((project, index) => (
+          {/* Large Project Card */}
+          <div className="w-full max-w-xl md:max-w-lg lg:max-w-lg mx-auto transform scale-85 origin-center -mt-3 md:-mt-6">
+            {projects.slice(currentIndex, currentIndex + 1).map((project) => (
               <div
                 key={project.id}
                 onClick={(e) => handleProjectClick(project, e)}
-                className="cursor-pointer group"
+                className="cursor-pointer group relative"
               >
-                {/* Project Image with 4:5 ratio and border - Cyan accent on hover */}
-                <div className={`aspect-[4/5] overflow-hidden border ${c.border} rounded-sm mb-2 transition-all duration-300 ${c.cyanBorder}`}>
+                <div
+                  className={`relative aspect-[4/5] overflow-hidden border ${c.border} rounded-lg transition-all duration-300 ${c.cyanBorder}`}
+                >
                   <img
                     src={project.image}
                     alt={project.title}
                     className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                   />
-                </div>
-                
-                {/* Project Info */}
-                <div className="px-1">
-                  <div className="flex items-baseline justify-between mb-1">
-                    {/* Project title with cyan hover */}
-                    <h3 className={`${c.accent} text-xs font-medium truncate pr-2 transition-colors duration-300 group-hover:${c.cyan}`}>
-                      {project.title}
-                    </h3>
-                    <div className={`${c.fade} text-[10px] flex-shrink-0`}>
-                      #{String(currentIndex + index + 1).padStart(2, "0")}
+
+                  {/* Dark Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+
+                  {/* Text Overlay */}
+                  <div className="absolute inset-0 p-6 flex flex-col justify-end">
+                    <div className="text-white space-y-2">
+                      {/* <div
+                        className={`inline-block px-2 py-1 bg-[#00eaf9]/20 border border-[#00eaf9]/40 rounded text-[#00eaf9] text-xs uppercase tracking-wider font-medium backdrop-blur-sm`}
+                      >
+                        {project.category}
+                      </div> */}
+
+                      <h3 className="text-xl sm:text-2xl font-medium mb-2 group-hover:text-[#00eaf9] transition-colors duration-300">
+                        {project.title}
+                      </h3>
+
+                      <p className="text-gray-300 text-sm mb-3 leading-relaxed">
+                        {project.subtitle}
+                      </p>
+
+                      {/* <div className="text-gray-400 text-xs font-mono">
+                        {project.tech}
+                      </div> */}
+
+                      <div className="flex justify-between items-center text-xs text-gray-400 pt-2">
+                        <div>{project.date}</div>
+                        <div>#{String(currentIndex + 1).padStart(2, "0")}</div>
+                      </div>
                     </div>
                   </div>
-                  <p className={`${c.main} text-[10px] mb-1 leading-relaxed`}>
-                    {project.subtitle}
-                  </p>
-                  <div className={`${c.fade} text-[9px] font-mono`}>
-                    {project.tech.split(' • ').slice(0, 2).join(' • ')}
+
+                  <div className="absolute top-4 right-4 bg-black/50 backdrop-blur-sm rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="text-white text-xs">Click to view</div>
                   </div>
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Dots Indicator - Cyan for active dot */}
-          <div className="flex justify-center gap-1 mt-6">
-            {Array.from({ length: Math.ceil(projects.length / 2) }).map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentIndex(index * 2)}
-                className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
-                  Math.floor(currentIndex / 2) === index ? c.cyan : c.fade
-                }`}
-              />
-            ))}
-          </div>
+          {/* Dots Indicator */}
+          <div className="flex justify-center gap-2 mt-0 md:-mt-3">
+          {projects.map((_, index) => (
+            <button
+              key={index}
+              onClick={(e) => {
+                e.stopPropagation();
+                setCurrentIndex(index);
+              }}
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                currentIndex === index
+                  ? isDarkMode
+                    ? "bg-[#00eaf9]"  
+                    : "bg-black"      
+                  : c.fade            
+              }`}
+            />
+          ))}
+        </div>
         </div>
       ) : (
         /* Full Project Details */
         <div className="space-y-6">
-          {/* Back Button - Cyan hover */}
           <button
             onClick={handleBackToGallery}
             className={`underline ${c.fade} ${c.cyanHover} text-xs transition-colors duration-300 flex items-center gap-2`}
@@ -200,10 +241,10 @@ const ProjectsSection = ({ isDarkMode = true }) => {
             ← back to gallery
           </button>
 
-          {/* Selected Project Card */}
-          <div className={`${c.bg} border ${c.border} p-4 sm:p-6 transition-all duration-500`}>
-            <div className="grid grid-cols- sm:grid-cols-2 gap-6 lg:gap-8">
-              {/* Left Side - Image */}
+          <div
+            className={`${c.bg} border ${c.border} p-4 sm:p-6 transition-all duration-500`}
+          >
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-8">
               <div className="space-y-4">
                 <div className={`aspect-[4/5] overflow-hidden border ${c.border}`}>
                   <img
@@ -217,14 +258,16 @@ const ProjectsSection = ({ isDarkMode = true }) => {
                 </div>
               </div>
 
-              {/* Right Side - Description */}
               <div className="space-y-4">
                 <div>
-                  {/* Category in cyan */}
-                  <div className={`${c.cyan} text-xs uppercase tracking-wider mb-2 font-medium`}>
+                  <div
+                    className={`${c.cyan} text-xs uppercase tracking-wider mb-2 font-medium`}
+                  >
                     {selectedProject.category}
                   </div>
-                  <h2 className={`${c.accent} text-sm sm:text-base font-medium mb-2`}>
+                  <h2
+                    className={`${c.accent} text-sm sm:text-base font-medium mb-2`}
+                  >
                     {selectedProject.title}
                   </h2>
                   <p className={`${c.main} text-xs mb-4`}>
@@ -237,7 +280,9 @@ const ProjectsSection = ({ isDarkMode = true }) => {
                 </div>
 
                 <div className={`pt-4 border-t ${c.border}`}>
-                  <div className={`${c.fade} text-xs uppercase tracking-wide mb-2`}>
+                  <div
+                    className={`${c.fade} text-xs uppercase tracking-wide mb-2`}
+                  >
                     tech stack
                   </div>
                   <div className={`${c.main} text-xs font-mono mb-4`}>
@@ -245,7 +290,6 @@ const ProjectsSection = ({ isDarkMode = true }) => {
                   </div>
                 </div>
 
-                {/* Links with cyan hover */}
                 <div className="flex gap-4 text-xs flex-wrap">
                   <a
                     href={selectedProject.url}
@@ -257,7 +301,9 @@ const ProjectsSection = ({ isDarkMode = true }) => {
                       if (selectedProject.url === "#") e.preventDefault();
                     }}
                   >
-                    {selectedProject.url === "#" ? "coming soon" : "view project →"}
+                    {selectedProject.url === "#"
+                      ? "coming soon"
+                      : "view project →"}
                   </a>
                   {selectedProject.code && selectedProject.code !== "#" && (
                     <a
