@@ -7,7 +7,7 @@ const Header = ({
   isLoaded,
   toggleDarkMode,
   onDoodleClick,
-  onNameDoubleClick  // Add this new prop
+  onNameDoubleClick 
 }) => (
   <div className="mb-20">
     <div className="flex items-center justify-between mb-1">
@@ -39,7 +39,7 @@ const Header = ({
       transform: isLoaded ? 'translateY(0)' : 'translateY(20px)',
       transition: 'all 0.8s ease-out'
     }}>
-      {/* Updated name with double-click handler */}
+      {/* double-click handler */}
       <h1 
         className="text-base font-light tracking-wide cursor-pointer select-none hover:opacity-80 transition-opacity duration-200"
         onDoubleClick={onNameDoubleClick}

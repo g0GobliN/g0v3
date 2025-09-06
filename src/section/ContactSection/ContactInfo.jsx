@@ -20,7 +20,7 @@ const ContactInfo = ({ isDarkMode, emailCopied, copyEmail }) => {
         isDarkMode ? "border-gray-800" : "border-gray-200"
       }`}
     >
-      {/* Hidden audio element */}
+      {/* audio element */}
       <audio ref={copySound} src="/assets/sounds/pop.mp3" preload="auto" />
 
       <div
@@ -55,6 +55,7 @@ const ContactInfo = ({ isDarkMode, emailCopied, copyEmail }) => {
         <div className="flex items-center gap-4">
           <span>social:</span>
           <div className="flex items-center gap-3">
+            {/* github link */}
             <a
               href="https://github.com/g0GobliN"
               target="_blank"
@@ -68,6 +69,7 @@ const ContactInfo = ({ isDarkMode, emailCopied, copyEmail }) => {
             >
               <Github size={14} />
             </a>
+            {/* instagram link */}
             <a
               href="https://instagram.com/goblin01_"
               target="_blank"
@@ -81,7 +83,7 @@ const ContactInfo = ({ isDarkMode, emailCopied, copyEmail }) => {
             >
               <Instagram size={14} />
             </a>
-
+            {/* resume download link */}
             <a
               href="/assets/Vishal_Gurung_Portfolio_Resume.pdf"
               download

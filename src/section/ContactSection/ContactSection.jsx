@@ -1,5 +1,5 @@
-import ContactForm from "../components/ContactForm";
-import ContactInfo from "../components/ContactInfo";
+import ContactForm from "./ContactForm";
+import ContactInfo from "./ContactInfo";
 
 const ContactSection = ({ formData, handleInputChange, isDarkMode, emailCopied, copyEmail }) => {
   return (

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { db } from "./firebase"; // Adjust the path if your file is in a different location
+import { db } from "./firebase";
 import {
   collection,
   getDocs,
@@ -16,7 +16,7 @@ const DoodleNotepad = ({ isDarkMode, onClose }) => {
   const [isDrawing, setIsDrawing] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [showGallery, setShowGallery] = useState(false);
-  const [formStep, setFormStep] = useState("draw"); // 'draw', 'name', 'comment'
+  const [formStep, setFormStep] = useState("draw"); 
   const [draggedComment, setDraggedComment] = useState(null);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const [hasDragged, setHasDragged] = useState(false); // New state to track if a drag has occurred
@@ -602,7 +602,7 @@ const DoodleNotepad = ({ isDarkMode, onClose }) => {
           </div>
 
           {/* Gallery Grid */}
-          <div className="flex-1 overflow-y-auto flex flex-col items-center min-h-0"> {/* Added flex and items-center */}
+          <div className="flex-1 overflow-y-auto flex flex-col items-center min-h-0"> 
             {comments.length === 0 ? (
               <div className="flex items-center justify-center h-full">
                 <div className="text-center">
@@ -619,7 +619,7 @@ const DoodleNotepad = ({ isDarkMode, onClose }) => {
                 </div>
               </div>
             ) : (
-              <div className="w-full max-w-sm sm:max-w-md pb-4"> {/* Added a max-width container */}
+              <div className="w-full max-w-sm sm:max-w-md pb-4"> 
                 {comments.map((comment) => (
                   <div
                     key={comment.id}

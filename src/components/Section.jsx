@@ -1,7 +1,7 @@
-import AboutSection from '../section/AboutSection';
-import ProjectsSection from '../section/ProjectSection';
-import BlogSection from '../section/BlogSection';
-import ContactSection from '../section/ContactSection';
+import AboutSection from '../section/AboutSection/AboutSection';
+import ProjectsSection from '../section/ProjectsSection/ProjectsSection';
+import BlogSection from '../section/BlogSection/BlogSection';
+import ContactSection from '../section/ContactSection/ContactSection';
 import { useRef } from 'react';
 
 const Section = ({ 
