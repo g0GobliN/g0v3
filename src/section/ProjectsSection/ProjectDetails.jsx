@@ -18,11 +18,13 @@ const ProjectDetails = ({ project, onBack, c }) => {
       >
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-8">
           <div className="space-y-4">
-            <div className={`aspect-[4/5] overflow-hidden border ${c.border}`}>
+            <div className={`aspect-[4/5] overflow-hidden border ${c.border} flex items-center justify-center `}>
               <img
                 src={project.image}
                 alt={project.title}
-                className="w-full h-full object-cover"
+                 className={`transition-transform duration-300 ${
+                  project.id === 3 ? "scale-75" : "w-full h-full object-cover"
+                }`}
               />
             </div>
             <div className={`${c.fade} text-xs text-center italic`}>

@@ -1,6 +1,8 @@
 import React from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
+import ComingSoonProjectCard from "./ComingSoonProjectCard";
+
 const ProjectGallery = ({
   projects,
   currentIndex,
@@ -71,38 +73,53 @@ const ProjectGallery = ({
             }}
             className="cursor-pointer group relative"
           >
-            <div
-              className={`relative aspect-[4/5] overflow-hidden border ${c.border} rounded-lg transition-all duration-300 ${c.cyanBorder}`}
-            >
-              <img
-                src={project.image}
-                alt={project.title}
-                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-              />
+            {/* Conditional Rendering logic starts here */}
+            {project.isComingSoon ? (
+              <ComingSoonProjectCard c={c} />
+            ) : (
+              // Original card JSX
+              <div
+                className={`relative aspect-[4/5] overflow-hidden border ${c.border} rounded-lg transition-all duration-300 ${c.cyanBorder}`}
+              >
+                {/* Image Wrapper */}
+                <div className="w-full h-full flex items-center justify-center">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className={`transition-transform duration-300 object-cover ${
+                      project.id === 3
+                        ? "scale-55 mx-auto" 
+                        : "w-full h-full group-hover:scale-105"
+                    }`}
+                  />
 
-              {/* Dark Gradient Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                </div>
 
-              {/* Text Overlay */}
-              <div className="absolute inset-0 p-6 flex flex-col justify-end">
-                <div className="text-white space-y-2">
-                  <h3 className="text-xl sm:text-2xl font-medium mb-2 group-hover:text-[#00eaf9] transition-colors duration-300">
-                    {project.title}
-                  </h3>
-                  <p className="text-gray-300 text-sm mb-3 leading-relaxed">
-                    {project.subtitle}
-                  </p>
-                  <div className="flex justify-between items-center text-xs text-gray-400 pt-2">
-                    <div>{project.date}</div>
-                    <div>#{String(currentIndex + 1).padStart(2, "0")}</div>
+                {/* Dark Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+
+                {/* Text Overlay */}
+                <div className="absolute inset-0 p-6 flex flex-col justify-end">
+                  <div className="text-white space-y-2">
+                    <h3 className="text-xl sm:text-2xl font-medium mb-2 group-hover:text-[#00eaf9] transition-colors duration-300">
+                      {project.title}
+                    </h3>
+                    <p className="text-gray-300 text-sm mb-3 leading-relaxed">
+                      {project.subtitle}
+                    </p>
+                    <div className="flex justify-between items-center text-xs text-gray-400 pt-2">
+                      <div>{project.date}</div>
+                      <div>#{String(currentIndex + 1).padStart(2, "0")}</div>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="absolute top-4 right-4 bg-black/50 backdrop-blur-sm rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <div className="text-white text-xs">Click to view</div>
+                {/* Hover Click Label */}
+                <div className="absolute top-4 right-4 bg-black/50 backdrop-blur-sm rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="text-white text-xs">Click to view</div>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         ))}
       </div>

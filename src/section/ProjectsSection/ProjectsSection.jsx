@@ -13,28 +13,37 @@ const ProjectsSection = ({ isDarkMode = true }) => {
     {
       id: 1,
       date: "nov 2024",
-      title: "dog api experiment",
-      subtitle: "weekend project exploring fetch patterns",
+      title: "cat gallery",
+      subtitle: "a dynamic single-page application",
       description:
-        "This project started as a weekend experiment to practice fundamental web development concepts. The goal was simple: create something fun while reinforcing core JavaScript skills. What emerged was a clean, responsive application that demonstrates proper API integration patterns and error handling strategies.",
-      tech: "vanilla js • fetch api • responsive design",
-      url: "/dog-demo.html",
-      code: "#",
-      image: "/assets/images/dog2.webp",
+        "Built this site to practice HTML, CSS, JavaScript, and API integration. Leveraged the Cat API to dynamically fetch and display cat images with full metadata. Implemented multiple pages like Home, About, and Contact, focusing on responsive design, modular structure, and clean UI/UX.",
+      tech: "vanilla js • the cat api • ui/ux design",
+      url: "https://g0goblin.github.io/CatGallery/",
+      // code: "https://github.com/g0goblin/CatGallery",
+      image: "/assets/images/cat2.jpg",
       category: "web development",
     },
+    // {
+    //   id: 2,
+    //   date: "may 2025",
+    //   title: "first portfolio",
+    //   subtitle: "complete redesign from ground up",
+    //   description:
+    //     "This was my first full-stack portfolio website, and building it was a big milestone for me. It took me about a month to make, trying out different layout ideas before finally settling on this one. I used React, Tailwind CSS, and several NPM tools to build it. Through this project, I learned a lot and felt proud to see how much I could create. The design is clean and simple, focusing more on the content than flashy effects, and every part of it has a purpose.",
+    //   tech: "react • tailwind css • responsive design",
+    //   url: "https://g0goblin.github.io/g0/",
+    //   code: "https://github.com/g0goblin/g0",
+    //   image: "/assets/images/portfolio5.jpg",
+    //   category: "design & development",
+    // },
     {
-      id: 2,
-      date: "may 2025",
-      title: "first portfolio",
-      subtitle: "complete redesign from ground up",
-      description:
-        "This was my first full-stack portfolio website, and building it was a big milestone for me. It took me about a month to make, trying out different layout ideas before finally settling on this one. I used React, Tailwind CSS, and several NPM tools to build it. Through this project, I learned a lot and felt proud to see how much I could create. The design is clean and simple, focusing more on the content than flashy effects, and every part of it has a purpose.",
-      tech: "react • tailwind css • responsive design",
-      url: "https://g0goblin.github.io/g0/",
-      code: "https://github.com/g0goblin/g0",
-      image: "/assets/images/portfolio5.jpg",
-      category: "design & development",
+      id: 3,
+      isComingSoon: true, 
+      title: "Coming Soon",
+      subtitle: "Coming soon… or maybe never, who knows? ¯\\_(ツ)_/¯",
+      date: "soon",
+      image: "/assets/images/goblin.webp",
+      category: "web development",
     },
   ];
 
@@ -51,6 +60,8 @@ const ProjectsSection = ({ isDarkMode = true }) => {
   };
 
   const handleProjectClick = (project) => {
+    // Prevent the click action for the "coming soon" card
+    // if (project.isComingSoon) return;
     playWhooshSound();
     setSelectedProject(project);
   };
