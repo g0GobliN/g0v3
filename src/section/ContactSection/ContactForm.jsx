@@ -54,9 +54,15 @@ const ContactForm = ({ formData, handleInputChange, isDarkMode }) => {
         }
       );
 
-      const result = await response.json();
+      let result = {};
+      try {
+        result = await response.json();
+      } catch {
+        // ignore JSON parsing errors
+      }
 
-      if (result.success === "true") {
+      // ✅ Fix: fallback to response.ok if result.success is missing
+      if (result.success === "true" || response.ok) {
         setSubmitStatus("success");
         if (successSoundRef.current) {
           successSoundRef.current.volume = 0.5;
