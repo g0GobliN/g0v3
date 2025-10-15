@@ -51,8 +51,8 @@ export default function Portfolio() {
     }
   };
 
-  // Handle double-click on name to show outro
-  const handleNameDoubleClick = () => {
+  // Handle click on name to show outro
+  const handleNameClick = () => {
     setShowOutro(true);
   };
 
@@ -126,7 +126,7 @@ export default function Portfolio() {
             isLoaded={isLoaded}
             toggleDarkMode={toggleDarkMode}
             onDoodleClick={() => setShowDoodleWorld(true)}
-            onNameDoubleClick={handleNameDoubleClick}
+            onNameClick={handleNameClick}
           />
 
           <ProgressIndicator 

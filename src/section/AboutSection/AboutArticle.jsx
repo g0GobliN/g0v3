@@ -19,7 +19,7 @@ const AboutArticle = ({
               Hi, I'm{" "}
               <span
                 className={`underline ${c.cyan} cursor-pointer`}
-                onDoubleClick={(e) => {
+                onClick={(e) => {
                   e.stopPropagation();
                   openOutro();
                 }}
