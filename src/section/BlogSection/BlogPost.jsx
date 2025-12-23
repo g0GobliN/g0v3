@@ -1,4 +1,3 @@
-// BlogPost.jsx
 import React from "react";
 
 const BlogPost = ({ post, c, isDarkMode, isExpanded, onClose }) => {
@@ -17,7 +16,9 @@ const BlogPost = ({ post, c, isDarkMode, isExpanded, onClose }) => {
       </button>
 
       <header className="mb-4 sm:mb-8">
-        <div className={`text-[10px] sm:text-xs uppercase tracking-wider mb-3 sm:mb-6 ${isDarkMode ? `${c.cyan} font-medium` : `${c.fade}`}`}>
+        <div
+          className={`text-[10px] sm:text-xs uppercase tracking-wider mb-3 sm:mb-6 ${isDarkMode ? `${c.cyan} font-medium` : `${c.fade}`}`}
+        >
           {post.category}
         </div>
         <h1
@@ -25,9 +26,7 @@ const BlogPost = ({ post, c, isDarkMode, isExpanded, onClose }) => {
         >
           {post.title}
         </h1>
-        <div className={`${c.main} text-xs mb-3 sm:mb-6`}>
-          {post.excerpt}
-        </div>
+        <div className={`${c.main} text-xs mb-3 sm:mb-6`}>{post.excerpt}</div>
         <div
           className={`flex flex-col sm:flex-row sm:items-center sm:justify-between py-2 sm:py-4 border-t border-b ${c.border} gap-1 sm:gap-0`}
         >
@@ -42,7 +41,9 @@ const BlogPost = ({ post, c, isDarkMode, isExpanded, onClose }) => {
 
       <div>
         <figure className="mb-4 sm:mb-8">
-          <div className={`w-full h-48 sm:h-80 overflow-hidden border ${c.border}`}>
+          <div
+            className={`w-full h-48 sm:h-80 overflow-hidden border ${c.border}`}
+          >
             <img
               src={post.image}
               alt={post.title}
@@ -70,7 +71,9 @@ const BlogPost = ({ post, c, isDarkMode, isExpanded, onClose }) => {
 
           {post.tags && (
             <div className={`pt-4 sm:pt-6 border-t ${c.border}`}>
-              <div className={`${c.fade} text-[10px] sm:text-xs uppercase tracking-wide mb-2`}>
+              <div
+                className={`${c.fade} text-[10px] sm:text-xs uppercase tracking-wide mb-2`}
+              >
                 tags
               </div>
               <div className="flex flex-wrap gap-1">

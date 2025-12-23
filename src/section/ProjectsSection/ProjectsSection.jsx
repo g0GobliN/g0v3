@@ -12,6 +12,18 @@ const ProjectsSection = ({ isDarkMode = true }) => {
   const projects = [
     {
       id: 1,
+      date: "dec 2024",
+      title: "ZKS-Note",
+      subtitle: "a privacy-focused note-taking app",
+      description:
+        "Developed ZKS-Note, a note-taking app that uses zero-knowledge proofs to protect user privacy. It includes client-side encryption so users can verify ownership of notes without exposing their content. The focus was on secure data handling, authentication, and a smooth UI/UX experience.PS: The project is currently in beta and open-source, so anyone interested can contribute..",
+      tech: "react  • tailwind css • ui/ux design",
+      url: "https://github.com/g0GobliN/ZKSNote",
+      image: "/assets/images/zks.png",
+      category: "software development",
+    },
+    {
+      id: 2,
       date: "nov 2024",
       title: "cat gallery",
       subtitle: "a dynamic single-page application",
@@ -23,22 +35,9 @@ const ProjectsSection = ({ isDarkMode = true }) => {
       image: "/assets/images/cat2.jpg",
       category: "web development",
     },
-    // {
-    //   id: 2,
-    //   date: "may 2025",
-    //   title: "first portfolio",
-    //   subtitle: "complete redesign from ground up",
-    //   description:
-    //     "This was my first full-stack portfolio website, and building it was a big milestone for me. It took me about a month to make, trying out different layout ideas before finally settling on this one. I used React, Tailwind CSS, and several NPM tools to build it. Through this project, I learned a lot and felt proud to see how much I could create. The design is clean and simple, focusing more on the content than flashy effects, and every part of it has a purpose.",
-    //   tech: "react • tailwind css • responsive design",
-    //   url: "https://g0goblin.github.io/g0/",
-    //   code: "https://github.com/g0goblin/g0",
-    //   image: "/assets/images/portfolio5.jpg",
-    //   category: "design & development",
-    // },
     {
       id: 3,
-      isComingSoon: true, 
+      isComingSoon: true,
       title: "Coming Soon",
       subtitle: "Coming soon… or maybe never, who knows? ¯\\_(ツ)_/¯",
       date: "soon",
@@ -56,7 +55,9 @@ const ProjectsSection = ({ isDarkMode = true }) => {
     cardBg: isDarkMode ? "bg-gray-900" : "bg-gray-50",
     cyan: isDarkMode ? "text-[#00eaf9]" : "text-[#6da8ad]",
     cyanHover: isDarkMode ? "hover:text-[#00eaf9]" : "hover:text-[#6da8ad]",
-    cyanBorder: isDarkMode ? "hover:border-[#00eaf9]" : "hover:border-[#6da8ad]",
+    cyanBorder: isDarkMode
+      ? "hover:border-[#00eaf9]"
+      : "hover:border-[#6da8ad]",
   };
 
   const handleProjectClick = (project) => {

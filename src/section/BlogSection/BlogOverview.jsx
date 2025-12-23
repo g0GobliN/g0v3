@@ -1,4 +1,3 @@
-// BlogOverview.jsx
 import React from "react";
 
 const BlogOverview = ({ blogPosts, c, isDarkMode, onPostClick }) => {
@@ -61,7 +60,11 @@ const BlogOverview = ({ blogPosts, c, isDarkMode, onPostClick }) => {
                   <div className="p-3 sm:p-6">
                     <div
                       className={`text-[12px] sm:text-xs uppercase tracking-wide mb-1 sm:mb-2 ${
-                        post.skeleton ? c.fade : isDarkMode ? `${c.cyan} font-medium` : `${c.fade}`
+                        post.skeleton
+                          ? c.fade
+                          : isDarkMode
+                            ? `${c.cyan} font-medium`
+                            : `${c.fade}`
                       }`}
                     >
                       {post.category}

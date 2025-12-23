@@ -13,8 +13,7 @@ const blogPosts = [
     readTime: "10 min read",
     category: "development",
     featured: true,
-    image:
-      "/assets/gif/background6.gif",
+    image: "/assets/gif/background6.gif",
     content: `After finishing my first portfolio, I realized I made it way too complicated. There were too many animations, effects, and extra things. It looked nice, but it was hard to manage and fix later.
 
 So I started my second portfolio. The goal was to keep it simple, clean, and easy to manage, but still creative enough to show my skills.
@@ -40,8 +39,32 @@ Thanks for checking it out! Feel free to explore my projects or reach out if you
     reflection:
       "Sometimes the best solution is the simplest one. Complexity for its own sake serves no one.",
   },
+  //   {
+  //     id: 2,
+  //     title: "ZKS-Note ",
+  //     date: "Dec 22, 2025",
+  //     excerpt:
+  //       "A secure, private note-taking app using zero-knowledge proofs to ensure only you can read your notes.",
+  //     readTime: "8 min read",
+  //     category: "Software Development",
+  //     Image: "/assets/gif/background6.gif",
+  //     content: `In today's digital age, privacy is more important than ever. With data breaches and surveillance becoming commonplace, I wanted to create a note-taking app that prioritizes user privacy. That's how ZKS-Note was born.
+
+  // ZKS-Note uses zero-knowledge proofs (ZKPs) to ensure that only you can read your notes. ZKPs allow one party to prove to another that they know a value without revealing any information about the value itself. In the case of ZKS-Note, this means that the app can verify your identity and grant access to your notes without ever seeing the actual content.
+
+  // The app is built with a user-friendly interface, making it easy to create, edit, and organize your notes. All notes are encrypted on your device before being stored in the cloud, ensuring that even if someone gains access to the storage, they won't be able to read your notes.
+
+  // One of the key features of ZKS-Note is its robust security measures. The app uses end-to-end encryption, meaning that your notes are encrypted on your device and can only be decrypted by you. Additionally, the use of zero-knowledge proofs adds an extra layer of security, as the app never has access to your unencrypted notes.
+
+  // ZKS-Note also includes features like tagging, search functionality, and offline access, making it a versatile tool for note-taking while maintaining a strong focus on privacy.
+
+  // Overall, ZKS-Note is a testament to the power of zero-knowledge proofs in enhancing user privacy. By leveraging this technology, I've created a note-taking app that allows users to take control of their data and keep their notes secure.`,
+  //     tags: ["zero-knowledge proofs", "privacy", "note-taking app", "encryption"],
+  //     reflection:
+  //       "Building ZKS-Note reinforced my belief in the importance of privacy in software development. Zero-knowledge proofs offer exciting possibilities for creating secure applications that respect user data.",
+  //   },
   {
-    id: 2,
+    id: 3,
     skeleton: true,
     date: "coming soon",
     category: "coming soon",
@@ -61,7 +84,9 @@ const BlogSection = ({ isDarkMode = true }) => {
     border: isDarkMode ? "border-gray-800" : "border-gray-200",
     bg: isDarkMode ? "bg-black" : "bg-white",
     skeleton: isDarkMode ? "bg-gray-800" : "bg-gray-200",
-    skeletonShimmer: isDarkMode ? "from-gray-800 via-gray-700 to-gray-800" : "from-gray-200 via-gray-100 to-gray-200",
+    skeletonShimmer: isDarkMode
+      ? "from-gray-800 via-gray-700 to-gray-800"
+      : "from-gray-200 via-gray-100 to-gray-200",
     cyan: isDarkMode ? "text-[#00eaf9]" : "text-[#6da8ad]",
     cyanHover: isDarkMode ? "hover:text-[#00eaf9]" : "hover:text-[#6da8ad]",
   };

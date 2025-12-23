@@ -82,17 +82,16 @@ const ProjectGallery = ({
                 className={`relative aspect-[4/5] overflow-hidden border ${c.border} rounded-lg transition-all duration-300 ${c.cyanBorder}`}
               >
                 {/* Image Wrapper */}
-                <div className="w-full h-full flex items-center justify-center">
+                <div className="w-full h-full flex items-center justify-center ">
                   <img
                     src={project.image}
                     alt={project.title}
                     className={`transition-transform duration-300 object-cover ${
                       project.id === 3
-                        ? "scale-55 mx-auto" 
+                        ? "scale-55 mx-auto"
                         : "w-full h-full group-hover:scale-105"
                     }`}
                   />
-
                 </div>
 
                 {/* Dark Gradient Overlay */}
